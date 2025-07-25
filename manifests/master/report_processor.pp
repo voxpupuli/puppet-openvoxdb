@@ -6,10 +6,10 @@ class openvoxdb::master::report_processor (
   $masterless  = $openvoxdb::params::masterless,
   $enable      = false
 ) inherits openvoxdb::params {
-  if $masterless {
-    $puppet_conf_section = 'main'
+  $puppet_conf_section = if $masterless {
+    'main'
   } else {
-    $puppet_conf_section = 'master'
+    'server'
   }
 
   $puppetdb_ensure = $enable ? {

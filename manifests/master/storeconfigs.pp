@@ -6,10 +6,10 @@ class openvoxdb::master::storeconfigs (
   $masterless  = $openvoxdb::params::masterless,
   $enable      = true,
 ) inherits openvoxdb::params {
-  if $masterless {
-    $puppet_conf_section = 'main'
+  $puppet_conf_section = if $masterless {
+    'main'
   } else {
-    $puppet_conf_section = 'master'
+    'server'
   }
 
   $storeconfigs_ensure = $enable ? {

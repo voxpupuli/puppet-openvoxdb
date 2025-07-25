@@ -12,7 +12,7 @@ describe 'openvoxdb::master::storeconfigs', type: :class do
   end
 
   let(:param_ensure) { params[:enable] ? 'present' : 'absent' }
-  let(:puppet_conf_section) { params[:masterless] ? 'main' : 'master' }
+  let(:puppet_conf_section) { params[:masterless] ? 'main' : 'server' }
   let(:puppet_conf) { '/etc/puppetlabs/puppet/puppet.conf' }
 
   context 'with default parameters' do

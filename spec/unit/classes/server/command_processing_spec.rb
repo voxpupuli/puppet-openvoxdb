@@ -9,39 +9,42 @@ describe 'puppetdb::server::command_processing', type: :class do
 
   describe 'when using default values' do
     it {
-      is_expected.to contain_ini_setting('puppetdb_command_processing_threads')
-        .with(
+      is_expected.to contain_ini_setting('puppetdb_command_processing_threads').
+        with(
           'ensure'  => 'absent',
           'path'    => '/etc/puppetlabs/puppetdb/conf.d/config.ini',
           'section' => 'command-processing',
-          'setting' => 'threads',
+          'setting' => 'threads'
         )
     }
+
     it {
-      is_expected.to contain_ini_setting('puppetdb_command_processing_concurrent_writes')
-        .with(
+      is_expected.to contain_ini_setting('puppetdb_command_processing_concurrent_writes').
+        with(
           'ensure'  => 'absent',
           'path'    => '/etc/puppetlabs/puppetdb/conf.d/config.ini',
           'section' => 'command-processing',
-          'setting' => 'concurrent-writes',
+          'setting' => 'concurrent-writes'
         )
     }
+
     it {
-      is_expected.to contain_ini_setting('puppetdb_command_processing_store_usage')
-        .with(
+      is_expected.to contain_ini_setting('puppetdb_command_processing_store_usage').
+        with(
           'ensure'  => 'absent',
           'path'    => '/etc/puppetlabs/puppetdb/conf.d/config.ini',
           'section' => 'command-processing',
-          'setting' => 'store-usage',
+          'setting' => 'store-usage'
         )
     }
+
     it {
-      is_expected.to contain_ini_setting('puppetdb_command_processing_temp_usage')
-        .with(
+      is_expected.to contain_ini_setting('puppetdb_command_processing_temp_usage').
+        with(
           'ensure'  => 'absent',
           'path'    => '/etc/puppetlabs/puppetdb/conf.d/config.ini',
           'section' => 'command-processing',
-          'setting' => 'temp-usage',
+          'setting' => 'temp-usage'
         )
     }
   end
@@ -55,30 +58,32 @@ describe 'puppetdb::server::command_processing', type: :class do
     end
 
     it {
-      is_expected.to contain_ini_setting('puppetdb_command_processing_threads')
-        .with(
+      is_expected.to contain_ini_setting('puppetdb_command_processing_threads').
+        with(
           'ensure'  => 'absent',
           'path'    => '/etc/puppetdb/conf.d/config.ini',
           'section' => 'command-processing',
-          'setting' => 'threads',
+          'setting' => 'threads'
         )
     }
+
     it {
-      is_expected.to contain_ini_setting('puppetdb_command_processing_store_usage')
-        .with(
+      is_expected.to contain_ini_setting('puppetdb_command_processing_store_usage').
+        with(
           'ensure'  => 'absent',
           'path'    => '/etc/puppetdb/conf.d/config.ini',
           'section' => 'command-processing',
-          'setting' => 'store-usage',
+          'setting' => 'store-usage'
         )
     }
+
     it {
-      is_expected.to contain_ini_setting('puppetdb_command_processing_temp_usage')
-        .with(
+      is_expected.to contain_ini_setting('puppetdb_command_processing_temp_usage').
+        with(
           'ensure'  => 'absent',
           'path'    => '/etc/puppetdb/conf.d/config.ini',
           'section' => 'command-processing',
-          'setting' => 'temp-usage',
+          'setting' => 'temp-usage'
         )
     }
   end
@@ -94,43 +99,46 @@ describe 'puppetdb::server::command_processing', type: :class do
     end
 
     it {
-      is_expected.to contain_ini_setting('puppetdb_command_processing_threads')
-        .with(
+      is_expected.to contain_ini_setting('puppetdb_command_processing_threads').
+        with(
           'ensure'  => 'present',
           'path'    => '/etc/puppetlabs/puppetdb/conf.d/config.ini',
           'section' => 'command-processing',
           'setting' => 'threads',
-          'value'   => '10',
+          'value'   => '10'
         )
     }
+
     it {
-      is_expected.to contain_ini_setting('puppetdb_command_processing_concurrent_writes')
-        .with(
+      is_expected.to contain_ini_setting('puppetdb_command_processing_concurrent_writes').
+        with(
           'ensure'  => 'present',
           'path'    => '/etc/puppetlabs/puppetdb/conf.d/config.ini',
           'section' => 'command-processing',
           'setting' => 'concurrent-writes',
-          'value'   => '3',
+          'value'   => '3'
         )
     }
+
     it {
-      is_expected.to contain_ini_setting('puppetdb_command_processing_store_usage')
-        .with(
+      is_expected.to contain_ini_setting('puppetdb_command_processing_store_usage').
+        with(
           'ensure'  => 'present',
           'path'    => '/etc/puppetlabs/puppetdb/conf.d/config.ini',
           'section' => 'command-processing',
           'setting' => 'store-usage',
-          'value'   => '4000',
+          'value'   => '4000'
         )
     }
+
     it {
-      is_expected.to contain_ini_setting('puppetdb_command_processing_temp_usage')
-        .with(
+      is_expected.to contain_ini_setting('puppetdb_command_processing_temp_usage').
+        with(
           'ensure'  => 'present',
           'path'    => '/etc/puppetlabs/puppetdb/conf.d/config.ini',
           'section' => 'command-processing',
           'setting' => 'temp-usage',
-          'value'   => '2000',
+          'value'   => '2000'
         )
     }
   end

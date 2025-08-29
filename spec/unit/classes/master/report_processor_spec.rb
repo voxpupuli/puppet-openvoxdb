@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'puppetdb::master::report_processor', type: :class do
-  around(:each) do |example|
+  around do |example|
     confdir = RSpec.configuration.confdir
     RSpec.configuration.confdir = '/etc/puppet'
     example.run
@@ -20,14 +20,14 @@ describe 'puppetdb::master::report_processor', type: :class do
 
       describe 'when using default values' do
         it {
-          is_expected.to contain_ini_subsetting('puppet.conf/reports/puppetdb')
-            .with(
-              'ensure'                => 'absent',
-              'path'                  => '/etc/puppet/puppet.conf',
-              'section'               => 'master',
-              'setting'               => 'reports',
-              'subsetting'            => 'puppetdb',
-              'subsetting_separator'  => ',',
+          is_expected.to contain_ini_subsetting('puppet.conf/reports/puppetdb').
+            with(
+              'ensure' => 'absent',
+              'path' => '/etc/puppet/puppet.conf',
+              'section' => 'master',
+              'setting' => 'reports',
+              'subsetting' => 'puppetdb',
+              'subsetting_separator' => ','
             )
         }
       end
@@ -40,14 +40,14 @@ describe 'puppetdb::master::report_processor', type: :class do
         end
 
         it {
-          is_expected.to contain_ini_subsetting('puppet.conf/reports/puppetdb')
-            .with(
-              'ensure'                => 'present',
-              'path'                  => '/etc/puppet/puppet.conf',
-              'section'               => 'master',
-              'setting'               => 'reports',
-              'subsetting'            => 'puppetdb',
-              'subsetting_separator'  => ',',
+          is_expected.to contain_ini_subsetting('puppet.conf/reports/puppetdb').
+            with(
+              'ensure' => 'present',
+              'path' => '/etc/puppet/puppet.conf',
+              'section' => 'master',
+              'setting' => 'reports',
+              'subsetting' => 'puppetdb',
+              'subsetting_separator' => ','
             )
         }
       end

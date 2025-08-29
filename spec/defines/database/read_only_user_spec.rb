@@ -10,7 +10,7 @@ defaults = {
 
 valid = {
   'puppetdb-read': defaults.merge({ password_hash: 'blash' }),
-  'spectest': {
+  spectest: {
     read_database_username: 'spectest-read',
     database_name:          'spectest',
     database_owner:         'spectest',

@@ -43,7 +43,7 @@ describe 'puppetdb::master::routes', type: :class do
         master: {
           facts: {
             terminus: 'puppetdb',
-            cache: (Puppet::Util::Package.versioncmp(serverversion, '7.0') >= 0) ? 'json' : 'yaml'
+            cache: Puppet::Util::Package.versioncmp(serverversion, '7.0') >= 0 ? 'json' : 'yaml'
           },
         }
       }
@@ -52,10 +52,10 @@ describe 'puppetdb::master::routes', type: :class do
 
   context 'with defaults' do
     it {
-      is_expected.to contain_file("#{params[:puppet_confdir]}/routes.yaml")
-        .with(
-          ensure:  'file',
-          mode:    '0644',
+      is_expected.to contain_file("#{params[:puppet_confdir]}/routes.yaml").
+        with(
+          ensure: 'file',
+          mode: '0644'
         )
     }
 

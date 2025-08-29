@@ -1,13 +1,12 @@
 require 'spec_helper_acceptance'
 
 describe 'standalone' do
-  it_behaves_like 'puppetserver'
-
-  let(:puppetdb_params) {}
-  let(:puppetdb_master_config_params) {}
-
-  let(:postgres_version) { 'undef' } # default
   let(:manage_firewall) { "(getvar('facts.os.family') == 'RedHat' and Integer(getvar('facts.os.release.major')) > 7)" }
+  let(:postgres_version) { 'undef' } # default
+  let(:puppetdb_master_config_params) {}
+  let(:puppetdb_params) {}
+
+  it_behaves_like 'puppetserver'
 
   describe 'with defaults' do
     it_behaves_like 'puppetdb'
@@ -48,9 +47,9 @@ describe 'standalone' do
   end
 
   context 'with manage report processor', :change do
-    ['remove', 'add'].each do |outcome|
+    %w[remove add].each do |outcome|
       context "#{outcome}s puppet config puppetdb report processor" do
-        let(:enable_reports) { (outcome == 'add') ? true : false }
+        let(:enable_reports) { outcome == 'add' }
 
         let(:puppetdb_master_config_params) do
           <<~EOS
@@ -96,7 +95,7 @@ describe 'standalone' do
         ~> service { 'puppetdb':
           ensure => 'running',
         }
-        EOS
+      EOS
 
       apply_manifest(pp, expect_failures: false, debug: ENV.key?('DEBUG'))
     end

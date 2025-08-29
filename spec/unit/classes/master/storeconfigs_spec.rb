@@ -17,23 +17,24 @@ describe 'puppetdb::master::storeconfigs', type: :class do
 
   context 'with default parameters' do
     it {
-      is_expected.to contain_ini_setting("puppet.conf/#{puppet_conf_section}/storeconfigs")
-        .with_ensure(param_ensure)
-        .with(
+      is_expected.to contain_ini_setting("puppet.conf/#{puppet_conf_section}/storeconfigs").
+        with_ensure(param_ensure).
+        with(
           section: puppet_conf_section,
           path: puppet_conf,
           setting: 'storeconfigs',
-          value: true,
+          value: true
         )
     }
+
     it {
-      is_expected.to contain_ini_setting("puppet.conf/#{puppet_conf_section}/storeconfigs_backend")
-        .with_ensure(param_ensure)
-        .with(
+      is_expected.to contain_ini_setting("puppet.conf/#{puppet_conf_section}/storeconfigs_backend").
+        with_ensure(param_ensure).
+        with(
           section: puppet_conf_section,
           path: puppet_conf,
           setting: 'storeconfigs_backend',
-          value: 'puppetdb',
+          value: 'puppetdb'
         )
     }
   end

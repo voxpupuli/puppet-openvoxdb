@@ -1,35 +1,26 @@
-name: "Publish module"
-run-name: >
-  ${{ format('tag={0}', inputs.tag) }}
-  ${{ format('release={0}', inputs.release) }}
-  ${{ format('publish={0}', inputs.publish) }}
-  ${{ format('edit={0}', inputs.edit) }}
+---
+# Managed by modulesync - DO NOT EDIT
+# https://voxpupuli.org/docs/updating-files-managed-with-modulesync/
 
+name: Release
+
+# yamllint disable-line rule:truthy
 on:
-  workflow_dispatch:
-    inputs:
-      tag:
-        description: "Enter an old tag, or blank to tag HEAD of branch"
-        type: string
-      release:
-        description: "Create a Github release"
-        type: boolean
-        default: true
-      publish:
-        description: "Publish to the Forge"
-        type: boolean
-        default: true
-      edit:
-        description: "Re-tag and regenerate release notes"
-        type: boolean
-        default: false
+  push:
+    tags:
+      - '*'
+
+permissions:
+  contents: write
 
 jobs:
   release:
-    uses: "puppetlabs/cat-github-actions/.github/workflows/module_release.yml@main"
-    secrets: "inherit"
+    name: Release
+    uses: voxpupuli/gha-puppet/.github/workflows/release.yml@v3
     with:
-      tag: ${{ inputs.tag }}
-      release: ${{ inputs.release }}
-      publish: ${{ inputs.publish }}
-      edit: ${{ inputs.edit }}
+      allowed_owner: 'voxpupuli'
+    secrets:
+      # Configure secrets here:
+      #  https://docs.github.com/en/actions/security-guides/encrypted-secrets
+      username: ${{ secrets.PUPPET_FORGE_USERNAME }}
+      api_key: ${{ secrets.PUPPET_FORGE_API_KEY }}

@@ -1,24 +1,25 @@
 ---
-name: "ci"
+# Managed by modulesync - DO NOT EDIT
+# https://voxpupuli.org/docs/updating-files-managed-with-modulesync/
 
+name: CI
+
+# yamllint disable-line rule:truthy
 on:
-  pull_request:
+  pull_request: {}
+  push:
     branches:
-      - "main"
-  workflow_dispatch:
+      - main
+      - master
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: ${{ github.ref_name }}
   cancel-in-progress: true
 
-jobs:
-  Spec:
-    uses: "puppetlabs/cat-github-actions/.github/workflows/module_ci.yml@main"
-    secrets: "inherit"
+permissions:
+  contents: read
 
-  Acceptance:
-    needs: Spec
-    uses: "puppetlabs/cat-github-actions/.github/workflows/module_acceptance.yml@main"
-    secrets: "inherit"
-    with:
-      runs_on: "ubuntu-20.04"
+jobs:
+  puppet:
+    name: Puppet
+    uses: voxpupuli/gha-puppet/.github/workflows/beaker.yml@v3

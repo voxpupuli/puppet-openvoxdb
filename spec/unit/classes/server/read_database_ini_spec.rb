@@ -17,73 +17,79 @@ describe 'puppetdb::server::read_database', type: :class do
     end
 
     it {
-      is_expected.to contain_file('/etc/puppetlabs/puppetdb/conf.d/read_database.ini')
-        .with(
-          'ensure'  => 'file',
-          'owner'   => 'root',
-          'group'   => 'puppetdb',
-          'mode'    => '0640',
+      is_expected.to contain_file('/etc/puppetlabs/puppetdb/conf.d/read_database.ini').
+        with(
+          'ensure' => 'file',
+          'owner' => 'root',
+          'group' => 'puppetdb',
+          'mode' => '0640'
         )
     }
+
     it {
-      is_expected.to contain_ini_setting('puppetdb_read_database_username')
-        .with(
+      is_expected.to contain_ini_setting('puppetdb_read_database_username').
+        with(
           'ensure'  => 'present',
           'path'    => '/etc/puppetlabs/puppetdb/conf.d/read_database.ini',
           'section' => 'read-database',
           'setting' => 'username',
-          'value'   => 'puppetdb-read',
+          'value'   => 'puppetdb-read'
         )
     }
+
     it {
-      is_expected.to contain_ini_setting('puppetdb_read_database_password')
-        .with(
+      is_expected.to contain_ini_setting('puppetdb_read_database_password').
+        with(
           'ensure'    => 'present',
           'path'      => '/etc/puppetlabs/puppetdb/conf.d/read_database.ini',
           'section'   => 'read-database',
           'setting'   => 'password',
           'value'     => 'puppetdb-read',
-          'show_diff' => false,
+          'show_diff' => false
         )
     }
+
     it {
-      is_expected.to contain_ini_setting('puppetdb_read_pgs')
-        .with(
+      is_expected.to contain_ini_setting('puppetdb_read_pgs').
+        with(
           'ensure'  => 'present',
           'path'    => '/etc/puppetlabs/puppetdb/conf.d/read_database.ini',
           'section' => 'read-database',
           'setting' => 'syntax_pgs',
-          'value'   => true,
+          'value'   => true
         )
     }
+
     it {
-      is_expected.to contain_ini_setting('puppetdb_read_subname')
-        .with(
+      is_expected.to contain_ini_setting('puppetdb_read_subname').
+        with(
           'ensure'  => 'present',
           'path'    => '/etc/puppetlabs/puppetdb/conf.d/read_database.ini',
           'section' => 'read-database',
           'setting' => 'subname',
-          'value'   => '//puppetdb:5432/puppetdb',
+          'value'   => '//puppetdb:5432/puppetdb'
         )
     }
+
     it {
-      is_expected.to contain_ini_setting('puppetdb_read_conn_max_age')
-        .with(
+      is_expected.to contain_ini_setting('puppetdb_read_conn_max_age').
+        with(
           'ensure'  => 'present',
           'path'    => '/etc/puppetlabs/puppetdb/conf.d/read_database.ini',
           'section' => 'read-database',
           'setting' => 'conn-max-age',
-          'value'   => '60',
+          'value'   => '60'
         )
     }
+
     it {
-      is_expected.to contain_ini_setting('puppetdb_read_conn_lifetime')
-        .with(
+      is_expected.to contain_ini_setting('puppetdb_read_conn_lifetime').
+        with(
           'ensure'  => 'present',
           'path'    => '/etc/puppetlabs/puppetdb/conf.d/read_database.ini',
           'section' => 'read-database',
           'setting' => 'conn-lifetime',
-          'value'   => '0',
+          'value'   => '0'
         )
     }
 
@@ -97,8 +103,8 @@ describe 'puppetdb::server::read_database', type: :class do
       end
 
       it 'configures subname correctly' do
-        is_expected.to contain_ini_setting('puppetdb_read_subname')
-          .with(
+        is_expected.to contain_ini_setting('puppetdb_read_subname').
+          with(
             ensure: 'present',
             path: '/etc/puppetlabs/puppetdb/conf.d/read_database.ini',
             section: 'read-database',
@@ -108,7 +114,7 @@ describe 'puppetdb::server::read_database', type: :class do
                    'sslmode=verify-full&' \
                    'sslrootcert=/etc/puppetlabs/puppetdb/ssl/ca.pem&' \
                    'sslkey=/tmp/private_key.pk8&' \
-                   'sslcert=/etc/puppetlabs/puppetdb/ssl/public.pem',
+                   'sslcert=/etc/puppetlabs/puppetdb/ssl/public.pem'
           )
       end
 
@@ -122,8 +128,8 @@ describe 'puppetdb::server::read_database', type: :class do
         end
 
         it 'raises an error' do
-          is_expected.to compile
-            .and_raise_error(%r{Variables 'postgresql_ssl_on' and 'jdbc_ssl_properties' can not be used at the same time!})
+          is_expected.to compile.
+            and_raise_error(%r{Variables 'postgresql_ssl_on' and 'jdbc_ssl_properties' can not be used at the same time!})
         end
       end
     end

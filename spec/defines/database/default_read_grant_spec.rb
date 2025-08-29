@@ -10,7 +10,7 @@ describe 'puppetdb::database::default_read_grant' do
     database_read_only_username: 'puppetdb-read',
   }
   valid = {
-    'standard': defaults,
+    standard: defaults,
     'standard with port': defaults.merge({ database_port: 5433 }),
   }
 

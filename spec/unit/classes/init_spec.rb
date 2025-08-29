@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'puppetdb', type: :class do
-  ttl_args = ['node_ttl', 'node_purge_ttl', 'report_ttl']
+  ttl_args = %w[node_ttl node_purge_ttl report_ttl]
 
   on_supported_os.each do |os, facts|
     context "on #{os}" do
@@ -35,6 +35,7 @@ describe 'puppetdb', type: :class do
           it { is_expected.to compile.with_all_deps }
         end
       end
+
       describe 'without managed postgresql database' do
         let :params do
           {
@@ -75,11 +76,11 @@ describe 'puppetdb', type: :class do
         end
 
         it do
-          is_expected.to contain_postgresql__server__pg_hba_rule('allow access to all users for instance main')
-            .with_type('host')
-            .with_database('all')
-            .with_user('all')
-            .with_auth_method('md5')
+          is_expected.to contain_postgresql__server__pg_hba_rule('allow access to all users for instance main').
+            with_type('host').
+            with_database('all').
+            with_user('all').
+            with_auth_method('md5')
         end
       end
 
@@ -92,11 +93,12 @@ describe 'puppetdb', type: :class do
         end
 
         it { is_expected.to contain_class('puppetdb::server').with('postgresql_ssl_on' => true) }
+
         it {
-          is_expected.to contain_class('puppetdb::database::postgresql')
-            .with(
+          is_expected.to contain_class('puppetdb::database::postgresql').
+            with(
               'postgresql_ssl_on' => true,
-              'puppetdb_server' => 'puppetdb_host',
+              'puppetdb_server' => 'puppetdb_host'
             )
         }
       end

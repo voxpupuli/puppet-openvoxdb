@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'puppet/util/puppetdb_validator'
 
 describe 'Puppet::Util::PuppetdbValidator' do
-  before(:each) do
+  before do
     nethttpok = Net::HTTPOK.new('1.1', 200, 'OK')
     notfound = Net::HTTPNotFound.new('1.1', 404, 'Not found')
 

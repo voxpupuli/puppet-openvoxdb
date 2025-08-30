@@ -9,7 +9,7 @@ class puppetdb::master::report_processor (
   if $masterless {
     $puppet_conf_section = 'main'
   } else {
-    $puppet_conf_section = 'master'
+    $puppet_conf_section = 'server'
   }
 
   $puppetdb_ensure = $enable ? {

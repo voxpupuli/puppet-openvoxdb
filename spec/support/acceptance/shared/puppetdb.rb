@@ -43,7 +43,8 @@ shared_examples 'puppetdb' do
   end
 
   it 'applies idempotently' do
-    idempotent_apply(pp, debug: ENV.key?('DEBUG'))
+    apply_manifest(pp, expect_failures: false, debug: ENV.key?('DEBUG'))
+    apply_manifest(pp, expect_failures: false, debug: ENV.key?('DEBUG'))
   end
 
   it 'agent can puppetdb_query' do

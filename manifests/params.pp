@@ -35,6 +35,7 @@ class puppetdb::params inherits puppetdb::globals {
   $database_host          = 'localhost'
   $database_port          = '5432'
   $database_name          = 'puppetdb'
+  $database_locale        = 'C.UTF-8'
   $database_username      = 'puppetdb'
   $database_password      = 'puppetdb'
   $manage_db_password     = true

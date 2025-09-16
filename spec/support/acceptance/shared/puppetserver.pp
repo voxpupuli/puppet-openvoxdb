@@ -38,7 +38,7 @@ if $facts['os']['family'] == 'RedHat' {
     line               => '#PIDFile=/run/puppetlabs/puppetserver.pid',
     match              => '^PIDFile.*',
     append_on_no_match => false,
-    require            => Package['puppetserver'],
+    require            => Package['openvox-server'],
     notify             => Service['puppetserver'],
   }
 }
@@ -48,7 +48,19 @@ $sysconfdir = $facts['os']['family'] ? {
   default  => '/etc/sysconfig',
 }
 
-package { 'puppetserver':
+case fact('os.family') {
+  'Archlinux': {
+    $puppetserver_package = 'puppetserver'
+  }
+  'Debian', 'RedHat', 'Suse': {
+    $puppetserver_package = 'openvox-server'
+  }
+  default: {
+    fail("The fact 'os.family' is set to ${fact('os.family')} which is not supported by the puppetdb module.")
+  }
+}
+
+package { $puppetserver_package:
   ensure => installed,
 }
 # savagely disable dropsonde

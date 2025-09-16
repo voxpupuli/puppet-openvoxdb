@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'puppetlabs_spec_helper/puppetlabs_spec/puppet_internals'
-
 shared_examples 'postgresql_psql read grant' do
   it {
     is_expected.to contain_postgresql_psql("grant select permission for #{with[:database_read_only_username]}").

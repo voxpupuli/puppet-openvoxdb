@@ -26,21 +26,21 @@ describe 'standalone' do
 
     context 'puppetdb postgres user', :status do
       it 'is not allowing read-only user to create tables' do
-        run_shell('psql "postgresql://puppetdb-read:puppetdb-read@localhost/puppetdb" -c "create table tables(id int)"', expect_failures: true) do |r|
-          expect(r.stderr).to match(%r{^ERROR:  permission denied for schema public.*})
-          expect(r.exit_code).to eq 1
+        command('psql "postgresql://puppetdb-read:puppetdb-read@localhost/puppetdb" -c "create table tables(id int)"') do
+          its(:stderr) { is_expected.to match %r{^ERROR:  permission denied for schema public.*} }
+          its(:exit_status) { is_expected.to eq 1 }
         end
       end
 
       it 'is allowing normal user to manage schema' do
-        run_shell('psql "postgresql://puppetdb:puppetdb@localhost/puppetdb" -c "create table testing(id int); drop table testing"') do |r|
-          expect(r.exit_status).to eq 0
+        command('psql "postgresql://puppetdb:puppetdb@localhost/puppetdb" -c "create table testing(id int); drop table testing"') do
+          its(:exit_status) { is_expected.to eq 0 }
         end
       end
 
       it 'is allowing read-only user to select' do
-        run_shell('psql "postgresql://puppetdb-read:puppetdb-read@localhost/puppetdb" -c "select * from catalogs limit 1"') do |r|
-          expect(r.exit_status).to eq 0
+        command('psql "postgresql://puppetdb-read:puppetdb-read@localhost/puppetdb" -c "select * from catalogs limit 1"') do
+          its(:exit_status) { is_expected.to eq 0 }
         end
       end
     end

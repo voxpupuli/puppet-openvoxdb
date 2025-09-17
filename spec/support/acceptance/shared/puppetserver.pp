@@ -62,6 +62,14 @@ package { 'puppetserver':
 -> exec { '/opt/puppetlabs/bin/puppetserver ca setup':
   creates => '/etc/puppetlabs/puppetserver/ca/ca_crt.pem',
 }
+# Should prevent Error: Failed to initialize SSL: The CA certificates are
+# missing from '/etc/puppetlabs/puppet/ssl/certs/ca.pem'
+-> file { '/etc/puppetlabs/puppet/ssl/certs/ca.pem':
+  source => 'file:///etc/puppetlabs/puppetserver/ca/ca_crt.pem',
+  owner  => 'puppet',
+  group  => 'puppet',
+  mode   => '0644',
+}
 # drop memory requirements to fit on a low memory containers
 -> augeas { 'puppetserver-environment':
   context => "/files${sysconfdir}/puppetserver",

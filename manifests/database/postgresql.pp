@@ -12,6 +12,9 @@
 # @param database_name
 #   Sets the name of the database. Defaults to `puppetdb`.
 #
+# @param database_locale
+#   Sets the locale of the database. Defaults to `C.UTF-8`.
+#
 # @param database_username
 #   Creates a user for access the database. Defaults to `puppetdb`.
 #
@@ -74,6 +77,7 @@ class puppetdb::database::postgresql (
   $listen_addresses            = $puppetdb::params::database_host,
   $puppetdb_server             = $puppetdb::params::puppetdb_server,
   $database_name               = $puppetdb::params::database_name,
+  $database_locale = $puppetdb::params::database_locale,
   $database_username           = $puppetdb::params::database_username,
   Variant[String[1], Sensitive[String[1]]] $database_password = $puppetdb::params::database_password,
   $database_port               = $puppetdb::params::database_port,
@@ -150,7 +154,7 @@ class puppetdb::database::postgresql (
       user     => $database_username,
       password => $database_password,
       encoding => 'UTF8',
-      locale   => 'en_US.UTF-8',
+      locale   => $database_locale,
       grant    => 'all',
       port     => $port,
     }

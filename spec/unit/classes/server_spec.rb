@@ -14,6 +14,15 @@ describe 'puppetdb::server', type: :class do
     end
   end
 
+  let(:package_name) do
+    case facts[:os]['family']
+    when 'Archlinux', 'OpenBSD'
+      'puppetdb'
+    when 'Debian', 'RedHat', 'Suse'
+      'openvoxdb'
+    end
+  end
+
   on_supported_os.each do |os, facts|
     context "on #{os}" do
       let(:facts) { facts }
@@ -28,7 +37,7 @@ describe 'puppetdb::server', type: :class do
         it { is_expected.to contain_class('puppetdb::server::puppetdb') }
 
         it {
-          is_expected.to contain_package('puppetdb').
+          is_expected.to contain_package(package_name).
             that_notifies('Service[puppetdb]')
         }
 

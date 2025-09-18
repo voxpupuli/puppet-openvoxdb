@@ -17,21 +17,21 @@ shared_examples 'puppetdb::server::firewall' do
 
   it {
     option = with[:open_http_port] ? 'to' : 'not_to'
-    is_expected.method(option).call contain_firewall("#{with[:http_port]} accept - puppetdb")
-      .with(
+    is_expected.method(option).call contain_firewall("#{with[:http_port]} accept - puppetdb").
+      with(
         dport: with[:http_port],
         proto: 'tcp',
-        jump: 'accept',
+        jump: 'accept'
       )
   }
 
   it {
     option = with[:open_ssl_port] ? 'to' : 'not_to'
-    is_expected.method(option).call contain_firewall("#{with[:ssl_port]} accept - puppetdb")
-      .with(
+    is_expected.method(option).call contain_firewall("#{with[:ssl_port]} accept - puppetdb").
+      with(
         dport: with[:ssl_port],
         proto: 'tcp',
-        jump: 'accept',
+        jump: 'accept'
       )
   }
 end

@@ -7,6 +7,15 @@ describe 'puppetdb::master::config', type: :class do
     context "on #{os}" do
       let(:facts) { facts }
 
+      let(:termini_package_name) do
+        case facts[:os]['family']
+        when 'Archlinux', 'OpenBSD'
+          'puppetdb-termini'
+        when 'Debian', 'RedHat', 'Suse'
+          'openvoxdb-termini'
+        end
+      end
+
       context 'when PuppetDB on remote server' do
         context 'when using default values' do
           it { is_expected.to compile.with_all_deps }
@@ -21,7 +30,7 @@ describe 'puppetdb::master::config', type: :class do
             is_expected.to contain_puppetdb_conn_validator('puppetdb_conn').with(
               puppetdb_server: 'puppetdb.example.com',
               puppetdb_port: '8081',
-              use_ssl: 'true',
+              use_ssl: 'true'
             )
           }
         end
@@ -32,7 +41,7 @@ describe 'puppetdb::master::config', type: :class do
           it {
             is_expected.to contain_puppetdb_conn_validator('puppetdb_conn').with(
               puppetdb_port: '8080',
-              use_ssl: 'false',
+              use_ssl: 'false'
             )
           }
         end
@@ -44,7 +53,7 @@ describe 'puppetdb::master::config', type: :class do
           it {
             is_expected.to contain_puppetdb_conn_validator('puppetdb_conn').with(
               puppetdb_port: '1234',
-              use_ssl: 'true',
+              use_ssl: 'true'
             )
           }
         end
@@ -56,13 +65,13 @@ describe 'puppetdb::master::config', type: :class do
           it {
             is_expected.to contain_puppetdb_conn_validator('puppetdb_conn').with(
               puppetdb_port: '1234',
-              use_ssl: 'false',
+              use_ssl: 'false'
             )
           }
         end
 
         context 'when using default values' do
-          it { is_expected.to contain_package('puppetdb-termini').with(ensure: 'present') }
+          it { is_expected.to contain_package(termini_package_name).with(ensure: 'present') }
           it { is_expected.to contain_puppetdb_conn_validator('puppetdb_conn').with(test_url: '/pdb/meta/v1/version') }
         end
 
@@ -71,10 +80,11 @@ describe 'puppetdb::master::config', type: :class do
 
           it { is_expected.to contain_package('puppetdb-terminus').with(ensure: '2.2.0') }
           it { is_expected.to contain_puppetdb_conn_validator('puppetdb_conn').with(test_url: '/v3/version') }
+
           it {
-            is_expected.to contain_service('puppetmaster')
-              .with_ensure('running')
-              .with_enable(true)
+            is_expected.to contain_service('puppetmaster').
+              with_ensure('running').
+              with_enable(true)
           }
         end
       end

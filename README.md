@@ -75,13 +75,15 @@ everything (PostgreSQL, PuppetDB, Puppet master) all on the same node. This
 setup will be great for a testing or experimental environment. In this case,
 your manifest will look like:
 
-    node <hostname> {
-      # Configure puppetdb and its underlying database
-      class { 'puppetdb': }
-      
-      # Configure the Puppet master to use puppetdb
-      class { 'puppetdb::master::config': }
-    }
+```puppet
+node <hostname> {
+  # Configure puppetdb and its underlying database
+  class { 'puppetdb': }
+
+  # Configure the Puppet master to use puppetdb
+  class { 'puppetdb::master::config': }
+}
+```
 
 You can provide some parameters for these classes if you’d like more control,
 but that is literally all that it will take to get you up and running with the
@@ -138,7 +140,7 @@ To use SSL connections for the single node setup, use the following manifest:
         database_host => '<hostname>',
         database_listen_address => '0.0.0.0'
       }
-      
+
       # Configure the Puppet master to use puppetdb
       class { 'puppetdb::master::config': }
 
@@ -158,7 +160,7 @@ To use SSL connections for the multiple nodes setup, use the following manifest:
     node 'postgres.example.lan' {
       # Here we install and configure PostgreSQL and the PuppetDB
       # database instance, and tell PostgreSQL that it should
-      # listen for connections to the `$postgres_host`. 
+      # listen for connections to the `$postgres_host`.
       # We also enable SSL connections.
       class { 'puppetdb::database::postgresql':
         listen_addresses => $postgres_host,

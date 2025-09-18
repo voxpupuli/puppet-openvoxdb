@@ -1,13 +1,12 @@
 require 'spec_helper_acceptance'
 
 describe 'standalone' do
-  it_behaves_like 'puppetserver'
-
-  let(:puppetdb_params) {}
-  let(:puppetdb_master_config_params) {}
-
-  let(:postgres_version) { 'undef' } # default
   let(:manage_firewall) { "(getvar('facts.os.family') == 'RedHat' and Integer(getvar('facts.os.release.major')) > 7)" }
+  let(:postgres_version) { 'undef' } # default
+  let(:puppetdb_master_config_params) {}
+  let(:puppetdb_params) {}
+
+  it_behaves_like 'puppetserver'
 
   describe 'with defaults' do
     it_behaves_like 'puppetdb'
@@ -27,30 +26,30 @@ describe 'standalone' do
 
     context 'puppetdb postgres user', :status do
       it 'is not allowing read-only user to create tables' do
-        run_shell('psql "postgresql://puppetdb-read:puppetdb-read@localhost/puppetdb" -c "create table tables(id int)"', expect_failures: true) do |r|
-          expect(r.stderr).to match(%r{^ERROR:  permission denied for schema public.*})
-          expect(r.exit_code).to eq 1
+        command('psql "postgresql://puppetdb-read:puppetdb-read@localhost/puppetdb" -c "create table tables(id int)"') do
+          its(:stderr) { is_expected.to match %r{^ERROR:  permission denied for schema public.*} }
+          its(:exit_status) { is_expected.to eq 1 }
         end
       end
 
       it 'is allowing normal user to manage schema' do
-        run_shell('psql "postgresql://puppetdb:puppetdb@localhost/puppetdb" -c "create table testing(id int); drop table testing"') do |r|
-          expect(r.exit_status).to eq 0
+        command('psql "postgresql://puppetdb:puppetdb@localhost/puppetdb" -c "create table testing(id int); drop table testing"') do
+          its(:exit_status) { is_expected.to eq 0 }
         end
       end
 
       it 'is allowing read-only user to select' do
-        run_shell('psql "postgresql://puppetdb-read:puppetdb-read@localhost/puppetdb" -c "select * from catalogs limit 1"') do |r|
-          expect(r.exit_status).to eq 0
+        command('psql "postgresql://puppetdb-read:puppetdb-read@localhost/puppetdb" -c "select * from catalogs limit 1"') do
+          its(:exit_status) { is_expected.to eq 0 }
         end
       end
     end
   end
 
   context 'with manage report processor', :change do
-    ['remove', 'add'].each do |outcome|
+    %w[remove add].each do |outcome|
       context "#{outcome}s puppet config puppetdb report processor" do
-        let(:enable_reports) { (outcome == 'add') ? true : false }
+        let(:enable_reports) { outcome == 'add' }
 
         let(:puppetdb_master_config_params) do
           <<~EOS
@@ -96,7 +95,7 @@ describe 'standalone' do
         ~> service { 'puppetdb':
           ensure => 'running',
         }
-        EOS
+      EOS
 
       apply_manifest(pp, expect_failures: false, debug: ENV.key?('DEBUG'))
     end

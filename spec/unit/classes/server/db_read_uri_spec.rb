@@ -24,11 +24,11 @@ describe 'puppetdb::server::read_database', type: :class do
       end
 
       it {
-        is_expected.to contain_ini_setting('puppetdb_read_subname')
-          .with(
+        is_expected.to contain_ini_setting('puppetdb_read_subname').
+          with(
             section: 'read-database',
             setting: 'subname',
-            value: '//localhost:5432/puppetdb?ssl=true',
+            value: '//localhost:5432/puppetdb?ssl=true'
           )
       }
     end
@@ -43,8 +43,8 @@ describe 'puppetdb::server::read_database', type: :class do
       end
 
       it 'configures subname correctly' do
-        is_expected.to contain_ini_setting('puppetdb_read_subname')
-          .with(
+        is_expected.to contain_ini_setting('puppetdb_read_subname').
+          with(
             ensure: 'present',
             path: '/etc/puppetlabs/puppetdb/conf.d/read_database.ini',
             section: 'read-database',
@@ -54,7 +54,7 @@ describe 'puppetdb::server::read_database', type: :class do
                    'sslmode=verify-full&' \
                    'sslrootcert=/etc/puppetlabs/puppetdb/ssl/ca.pem&' \
                    'sslkey=/tmp/private_key.pk8&' \
-                   'sslcert=/etc/puppetlabs/puppetdb/ssl/public.pem',
+                   'sslcert=/etc/puppetlabs/puppetdb/ssl/public.pem'
           )
       end
 
@@ -68,8 +68,8 @@ describe 'puppetdb::server::read_database', type: :class do
         end
 
         it 'raises an error' do
-          is_expected.to compile
-            .and_raise_error(%r{Variables 'postgresql_ssl_on' and 'jdbc_ssl_properties' can not be used at the same time!})
+          is_expected.to compile.
+            and_raise_error(%r{Variables 'postgresql_ssl_on' and 'jdbc_ssl_properties' can not be used at the same time!})
         end
       end
     end

@@ -16,11 +16,10 @@ Layout/HashAlignment:
   Exclude:
     - 'spec/defines/database/postgresql_ssl_rules_spec.rb'
 
-# Offense count: 2
+# Offense count: 1
 # Configuration parameters: IgnoreLiteralBranches, IgnoreConstantBranches.
 Lint/DuplicateBranch:
   Exclude:
-    - 'spec/support/unit/facts.rb'
     - 'spec/unit/util/puppetdb_validator_spec.rb'
 
 # Offense count: 2
@@ -62,7 +61,7 @@ RSpec/StubbedMock:
   Exclude:
     - 'spec/unit/facter/puppetdb_version_spec.rb'
 
-# Offense count: 29
+# Offense count: 28
 # This cop supports unsafe autocorrection (--autocorrect-all).
 # Configuration parameters: EnforcedStyle.
 # SupportedStyles: always, always_true, never

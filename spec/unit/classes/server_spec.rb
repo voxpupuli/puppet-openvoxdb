@@ -37,7 +37,7 @@ describe 'puppetdb::server', type: :class do
         it { is_expected.to contain_class('puppetdb::server::puppetdb') }
 
         it {
-          is_expected.to contain_package(package_name).
+          is_expected.to contain_package('puppetdb').
             that_notifies('Service[puppetdb]')
         }
 

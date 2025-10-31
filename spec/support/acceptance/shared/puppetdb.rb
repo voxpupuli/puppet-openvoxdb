@@ -10,7 +10,7 @@ shared_examples 'puppetdb' do
           line               => '#PIDFile=/run/puppetlabs/puppetdb/puppetdb.pid',
           match              => '^PIDFile.*',
           append_on_no_match => false,
-          require            => Package['openvoxdb'],
+          require            => Package['puppetdb'],
           notify             => Service['puppetdb'],
         }
       }

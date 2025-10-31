@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
-require 'puppetlabs_spec_helper/puppetlabs_spec/puppet_internals'
-
 shared_examples 'postgresql_psql read grant' do
   it {
-    is_expected.to contain_postgresql_psql("grant select permission for #{with[:database_read_only_username]}")
-      .with(
+    is_expected.to contain_postgresql_psql("grant select permission for #{with[:database_read_only_username]}").
+      with(
         db: with[:database_name],
         command: "GRANT SELECT
                 ON ALL TABLES IN SCHEMA \"public\"
@@ -16,13 +14,13 @@ shared_examples 'postgresql_psql read grant' do
                   WHERE schemaname='public'
                     AND has_table_privilege('#{with[:database_read_only_username]}', schemaname || '.' || tablename, 'SELECT')=false
                 ) x
-                WHERE x.count=0",
+                WHERE x.count=0"
       )
   }
 
   it {
-    is_expected.to contain_postgresql_psql("grant usage permission for #{with[:database_read_only_username]}")
-      .with(
+    is_expected.to contain_postgresql_psql("grant usage permission for #{with[:database_read_only_username]}").
+      with(
         db: with[:database_name],
         command: "GRANT USAGE
                 ON ALL SEQUENCES IN SCHEMA \"public\"
@@ -33,33 +31,33 @@ shared_examples 'postgresql_psql read grant' do
                   WHERE sequence_schema='public'
                     AND has_sequence_privilege('#{with[:database_read_only_username]}', sequence_schema || '.' || sequence_name, 'USAGE')=false
                 ) x
-                WHERE x.count=0",
+                WHERE x.count=0"
       )
   }
 
   it {
-    is_expected.to contain_postgresql_psql("grant execution permission for #{with[:database_read_only_username]}")
-      .with(
+    is_expected.to contain_postgresql_psql("grant execution permission for #{with[:database_read_only_username]}").
+      with(
         db: with[:database_name],
         command: "GRANT EXECUTE
                 ON ALL FUNCTIONS IN SCHEMA \"public\"
                 TO \"#{with[:database_read_only_username]}\"",
-        unless:  "SELECT * FROM (
+        unless: "SELECT * FROM (
                   SELECT COUNT(*)
                   FROM pg_catalog.pg_proc p
                   LEFT JOIN pg_catalog.pg_namespace n ON n.oid = p.pronamespace
                   WHERE n.nspname='public'
                     AND has_function_privilege('#{with[:database_read_only_username]}', p.oid, 'EXECUTE')=false
                 ) x
-                WHERE x.count=0",
+                WHERE x.count=0"
       )
   }
 end
 
 shared_examples 'postgresql_psql default read grant' do
   it {
-    is_expected.to contain_postgresql_psql("grant default select permission for #{with[:database_read_only_username]}")
-      .with(
+    is_expected.to contain_postgresql_psql("grant default select permission for #{with[:database_read_only_username]}").
+      with(
         db:      with[:database_name],
         command: "ALTER DEFAULT PRIVILEGES
                   FOR USER \"#{with[:database_username]}\"
@@ -73,13 +71,13 @@ shared_examples 'postgresql_psql default read grant' do
                 FROM pg_default_acl acl
                 JOIN pg_namespace ns ON acl.defaclnamespace=ns.oid
                 WHERE '@' || array_to_string(acl.defaclacl, '@') || '@' ~ '@(\"?)#{with[:database_read_only_username]}\\1=r/(\"?)#{with[:database_username]}\\2@'
-                AND nspname = 'public'",
+                AND nspname = 'public'"
       )
   }
 
   it {
-    is_expected.to contain_postgresql_psql("grant default usage permission for #{with[:database_read_only_username]}")
-      .with(
+    is_expected.to contain_postgresql_psql("grant default usage permission for #{with[:database_read_only_username]}").
+      with(
         db:      with[:database_name],
         command: "ALTER DEFAULT PRIVILEGES
                   FOR USER \"#{with[:database_username]}\"
@@ -93,13 +91,13 @@ shared_examples 'postgresql_psql default read grant' do
                 FROM pg_default_acl acl
                 JOIN pg_namespace ns ON acl.defaclnamespace=ns.oid
                 WHERE '@' || array_to_string(acl.defaclacl, '@') || '@' ~ '@(\"?)#{with[:database_read_only_username]}\\1=U/(\"?)#{with[:database_username]}\\2@'
-                AND nspname = 'public'",
+                AND nspname = 'public'"
       )
   }
 
   it {
-    is_expected.to contain_postgresql_psql("grant default execute permission for #{with[:database_read_only_username]}")
-      .with(
+    is_expected.to contain_postgresql_psql("grant default execute permission for #{with[:database_read_only_username]}").
+      with(
         db:      with[:database_name],
         command: "ALTER DEFAULT PRIVILEGES
                   FOR USER \"#{with[:database_username]}\"
@@ -113,7 +111,7 @@ shared_examples 'postgresql_psql default read grant' do
                 FROM pg_default_acl acl
                 JOIN pg_namespace ns ON acl.defaclnamespace=ns.oid
                 WHERE '@' || array_to_string(acl.defaclacl, '@') || '@' ~ '@(\"?)#{with[:database_read_only_username]}\\1=X/(\"?)#{with[:database_username]}\\2@'
-                AND nspname = 'public'",
+                AND nspname = 'public'"
       )
   }
 end
@@ -135,31 +133,31 @@ shared_examples 'puppetdb::database::read_only_user' do |error = false|
     it { is_expected.to contain_puppetdb__database__read_only_user(name).with(with) }
 
     it {
-      is_expected.to contain_postgresql__server__role(with[:read_database_username])
-        .that_comes_before("Postgresql::Server::Database_grant[#{with[:database_name]} grant connection permission to #{with[:read_database_username]}]")
-        .with_password_hash(with[:password_hash])
+      is_expected.to contain_postgresql__server__role(with[:read_database_username]).
+        that_comes_before("Postgresql::Server::Database_grant[#{with[:database_name]} grant connection permission to #{with[:read_database_username]}]").
+        with_password_hash(with[:password_hash])
     }
 
     it {
       btitle = "#{with[:database_name]} grant read permission on new objects from #{with[:database_owner]} to #{with[:read_database_username]}"
-      is_expected.to contain_postgresql__server__database_grant("#{with[:database_name]} grant connection permission to #{with[:read_database_username]}")
-        .that_comes_before("Puppetdb::Database::Default_read_grant[#{btitle}]")
-        .with(
+      is_expected.to contain_postgresql__server__database_grant("#{with[:database_name]} grant connection permission to #{with[:read_database_username]}").
+        that_comes_before("Puppetdb::Database::Default_read_grant[#{btitle}]").
+        with(
           privilege: 'CONNECT',
           db:        with[:database_name],
-          role:      with[:read_database_username],
+          role:      with[:read_database_username]
         )
     }
 
     it {
       rtitle = "#{with[:database_name]} grant read permission on new objects from #{with[:database_owner]} to #{with[:read_database_username]}"
-      is_expected.to contain_puppetdb__database__default_read_grant(rtitle)
-        .that_comes_before("Puppetdb::Database::Read_grant[#{with[:database_name]} grant read-only permission on existing objects to #{with[:read_database_username]}]")
-        .with(
+      is_expected.to contain_puppetdb__database__default_read_grant(rtitle).
+        that_comes_before("Puppetdb::Database::Read_grant[#{with[:database_name]} grant read-only permission on existing objects to #{with[:read_database_username]}]").
+        with(
           database_username:           with[:database_owner],
           database_read_only_username: with[:read_database_username],
           database_name:               with[:database_name],
-          schema:                      'public',
+          schema:                      'public'
         )
     }
 
@@ -174,11 +172,11 @@ shared_examples 'puppetdb::database::read_only_user' do |error = false|
     end
 
     it {
-      is_expected.to contain_puppetdb__database__read_grant("#{with[:database_name]} grant read-only permission on existing objects to #{with[:read_database_username]}")
-        .with(
+      is_expected.to contain_puppetdb__database__read_grant("#{with[:database_name]} grant read-only permission on existing objects to #{with[:read_database_username]}").
+        with(
           database_read_only_username: with[:read_database_username],
           database_name:               with[:database_name],
-          schema:                      'public',
+          schema:                      'public'
         )
     }
 
@@ -227,42 +225,42 @@ shared_examples 'puppetdb::database::postgresql_ssl_rules' do |error|
     it { is_expected.to raise_error(error) }
   else
     let(:identity_map_key) { "#{with[:database_name]}-#{with[:database_username]}-map" }
-    let(:client_cert) { (with[:postgres_version].to_f >= 12.0) ? 'verify-full' : '1' }
+    let(:client_cert) { with[:postgres_version].to_f >= 12.0 ? 'verify-full' : '1' }
 
     it { is_expected.to contain_puppetdb__database__postgresql_ssl_rules(name).with(with) }
 
     it {
-      is_expected.to contain_postgresql__server__pg_hba_rule("Allow certificate mapped connections to #{with[:database_name]} as #{with[:database_username]} (ipv4)")
-        .with(
+      is_expected.to contain_postgresql__server__pg_hba_rule("Allow certificate mapped connections to #{with[:database_name]} as #{with[:database_username]} (ipv4)").
+        with(
           type:        'hostssl',
           database:    with[:database_name],
           user:        with[:database_username],
           address:     '0.0.0.0/0',
           auth_method: 'cert',
           order:       0,
-          auth_option: "map=#{identity_map_key} clientcert=#{client_cert}",
+          auth_option: "map=#{identity_map_key} clientcert=#{client_cert}"
         )
     }
 
     it {
-      is_expected.to contain_postgresql__server__pg_hba_rule("Allow certificate mapped connections to #{with[:database_name]} as #{with[:database_username]} (ipv6)")
-        .with(
+      is_expected.to contain_postgresql__server__pg_hba_rule("Allow certificate mapped connections to #{with[:database_name]} as #{with[:database_username]} (ipv6)").
+        with(
           type:        'hostssl',
           database:    with[:database_name],
           user:        with[:database_username],
           address:     '::0/0',
           auth_method: 'cert',
           order:       0,
-          auth_option: "map=#{identity_map_key} clientcert=#{client_cert}",
+          auth_option: "map=#{identity_map_key} clientcert=#{client_cert}"
         )
     }
 
     it {
-      is_expected.to contain_postgresql__server__pg_ident_rule("Map the SSL certificate of the server as a #{with[:database_username]} user")
-        .with(
+      is_expected.to contain_postgresql__server__pg_ident_rule("Map the SSL certificate of the server as a #{with[:database_username]} user").
+        with(
           map_name:          identity_map_key,
           system_username:   with[:puppetdb_server],
-          database_username: with[:database_username],
+          database_username: with[:database_username]
         )
     }
   end

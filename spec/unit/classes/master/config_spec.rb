@@ -21,7 +21,7 @@ describe 'puppetdb::master::config', type: :class do
             is_expected.to contain_puppetdb_conn_validator('puppetdb_conn').with(
               puppetdb_server: 'puppetdb.example.com',
               puppetdb_port: '8081',
-              use_ssl: 'true',
+              use_ssl: 'true'
             )
           }
         end
@@ -32,7 +32,7 @@ describe 'puppetdb::master::config', type: :class do
           it {
             is_expected.to contain_puppetdb_conn_validator('puppetdb_conn').with(
               puppetdb_port: '8080',
-              use_ssl: 'false',
+              use_ssl: 'false'
             )
           }
         end
@@ -44,7 +44,7 @@ describe 'puppetdb::master::config', type: :class do
           it {
             is_expected.to contain_puppetdb_conn_validator('puppetdb_conn').with(
               puppetdb_port: '1234',
-              use_ssl: 'true',
+              use_ssl: 'true'
             )
           }
         end
@@ -56,7 +56,7 @@ describe 'puppetdb::master::config', type: :class do
           it {
             is_expected.to contain_puppetdb_conn_validator('puppetdb_conn').with(
               puppetdb_port: '1234',
-              use_ssl: 'false',
+              use_ssl: 'false'
             )
           }
         end
@@ -71,10 +71,11 @@ describe 'puppetdb::master::config', type: :class do
 
           it { is_expected.to contain_package('puppetdb-terminus').with(ensure: '2.2.0') }
           it { is_expected.to contain_puppetdb_conn_validator('puppetdb_conn').with(test_url: '/v3/version') }
+
           it {
-            is_expected.to contain_service('puppetmaster')
-              .with_ensure('running')
-              .with_enable(true)
+            is_expected.to contain_service('puppetmaster').
+              with_ensure('running').
+              with_enable(true)
           }
         end
       end

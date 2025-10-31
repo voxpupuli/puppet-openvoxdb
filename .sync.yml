@@ -1,24 +1,3 @@
 ---
-.rubocop.yml:
-  default_configs:
-    AllCops:
-      NewCops: enable
-      Include:
-        - '**/*.rake'
-.pdkignore:
-  paths:
-    - /.*.yml
-    - /pdk.yaml
-    - /.pmtignore
-    - /.git*
-    - /.editorconfig
-    - /provision.yaml
-Rakefile:
-  default_disabled_lint_checks:
-    - parameter_types
-    - 140chars
-spec/default_facts.yml:
-  unmanaged: true
-spec/spec_helper.rb:
-  coverage_report: true
-  minimum_code_coverage_percentage: 100
+spec/spec_helper_acceptance.rb:
+  unmanaged: false

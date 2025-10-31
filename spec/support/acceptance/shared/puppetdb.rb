@@ -3,18 +3,6 @@
 shared_examples 'puppetdb' do
   let(:pp) do
     <<~PP
-      if $facts['os']['family'] == 'RedHat' {
-        # Work-around EL systemd in docker bug affecting forked services
-        file_line { 'puppetdb-unit-remove-pidfile':
-          path               => '/lib/systemd/system/puppetdb.service',
-          line               => '#PIDFile=/run/puppetlabs/puppetdb/puppetdb.pid',
-          match              => '^PIDFile.*',
-          append_on_no_match => false,
-          require            => Package['openvoxdb'],
-          notify             => Service['puppetdb'],
-        }
-      }
-
       # reduce pgs memory
       postgresql::server::config_entry { 'max_connections': value => '20' }
       postgresql::server::config_entry { 'shared_buffers': value => '128kB' }

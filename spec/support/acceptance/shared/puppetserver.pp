@@ -24,23 +24,6 @@ if $facts['os']['family'] == 'RedHat' {
     -> Package['disable-dnf-postgresql-module']
     -> Package <| tag == 'postgresql' |>
   }
-
-  # Work-around EL systemd in docker with cgroupsv1? issue and forked services
-  # Without this, the puppet agent will stall for 300 seconds waiting for
-  # the service to start... then miserably fail.
-  # systemd error message:
-  #     New main PID 1411 does not belong to service, and PID file is not
-  #     owned by root. Refusing.
-  # PIDFile is not needed, but it cannot be reset by a drop-in, therefor the
-  # original unit must be modified
-  file_line { 'puppetserver-unit-remove-pidfile':
-    path               => '/lib/systemd/system/puppetserver.service',
-    line               => '#PIDFile=/run/puppetlabs/puppetserver.pid',
-    match              => '^PIDFile.*',
-    append_on_no_match => false,
-    require            => Package['openvox-server'],
-    notify             => Service['puppetserver'],
-  }
 }
 
 $sysconfdir = $facts['os']['family'] ? {
@@ -62,14 +45,6 @@ case fact('os.family') {
 
 package { $puppetserver_package:
   ensure => installed,
-}
-# savagely disable dropsonde
-~> file {
-  [
-    '/opt/puppetlabs/server/data/puppetserver/dropsonde/bin/dropsonde',
-    '/opt/puppetlabs/server/apps/puppetserver/cli/apps/dropsonde',
-  ]:
-    ensure => absent,
 }
 -> exec { '/opt/puppetlabs/bin/puppetserver ca setup':
   creates => '/etc/puppetlabs/puppetserver/ca/ca_crt.pem',

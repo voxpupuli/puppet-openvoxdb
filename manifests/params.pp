@@ -35,6 +35,7 @@ class puppetdb::params inherits puppetdb::globals {
   $database_host          = 'localhost'
   $database_port          = '5432'
   $database_name          = 'puppetdb'
+  $database_locale        = 'C.UTF-8'
   $database_username      = 'puppetdb'
   $database_password      = 'puppetdb'
   $manage_db_password     = true
@@ -113,13 +114,29 @@ class puppetdb::params inherits puppetdb::globals {
     $test_url         = '/v3/version'
   } else {
     case fact('os.family') {
-      'RedHat', 'Suse', 'Archlinux','Debian': {
+      'Archlinux': {
         $puppetdb_package    = 'puppetdb'
         $terminus_package    = 'puppetdb-termini'
         $etcdir              = '/etc/puppetlabs/puppetdb'
         $puppet_confdir      = pick($puppetdb::globals::puppet_confdir,'/etc/puppetlabs/puppet')
         $puppet_service_name = 'puppetserver'
         $vardir              = '/opt/puppetlabs/server/data/puppetdb'
+      }
+      'Debian', 'RedHat', 'Suse': {
+        $puppetdb_package    = 'openvoxdb'
+        $terminus_package    = 'openvoxdb-termini'
+        $etcdir              = '/etc/puppetlabs/puppetdb'
+        $puppet_confdir      = pick($puppetdb::globals::puppet_confdir,'/etc/puppetlabs/puppet')
+        $puppet_service_name = 'puppetserver'
+        $vardir              = '/opt/puppetlabs/server/data/puppetdb'
+      }
+      'FreeBSD': {
+        $puppetdb_package    = "openvoxdb-${puppetdb::params::puppetdb_major_version}"
+        $terminus_package    = "openvoxdb-terminus-${puppetdb::params::puppetdb_major_version}"
+        $etcdir              = '/usr/local/etc/puppetdb'
+        $puppet_confdir      = pick($puppetdb::globals::puppet_confdir,'/usr/local/etc/puppet')
+        $puppet_service_name = 'puppetserver'
+        $vardir              = '/var/db/puppetdb'
       }
       'OpenBSD': {
         $puppetdb_package    = 'puppetdb'
@@ -128,14 +145,6 @@ class puppetdb::params inherits puppetdb::globals {
         $puppet_confdir      = pick($puppetdb::globals::puppet_confdir,'/etc/puppetlabs/puppet')
         $puppet_service_name = undef
         $vardir              = '/opt/puppetlabs/server/data/puppetdb'
-      }
-      'FreeBSD': {
-        $puppetdb_package    = inline_epp('puppetdb<%= $puppetdb::params::puppetdb_major_version %>')
-        $terminus_package    = inline_epp('puppetdb-terminus<%= $puppetdb::params::puppetdb_major_version %>')
-        $etcdir              = '/usr/local/etc/puppetdb'
-        $puppet_confdir      = pick($puppetdb::globals::puppet_confdir,'/usr/local/etc/puppet')
-        $puppet_service_name = 'puppetserver'
-        $vardir              = '/var/db/puppetdb'
       }
       default: {
         fail("The fact 'os.family' is set to ${fact('os.family')} which is not supported by the puppetdb module.")

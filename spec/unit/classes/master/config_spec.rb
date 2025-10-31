@@ -7,6 +7,15 @@ describe 'puppetdb::master::config', type: :class do
     context "on #{os}" do
       let(:facts) { facts }
 
+      let(:termini_package_name) do
+        case facts[:os]['family']
+        when 'Archlinux', 'OpenBSD'
+          'puppetdb-termini'
+        when 'Debian', 'RedHat', 'Suse'
+          'openvoxdb-termini'
+        end
+      end
+
       context 'when PuppetDB on remote server' do
         context 'when using default values' do
           it { is_expected.to compile.with_all_deps }
@@ -62,7 +71,7 @@ describe 'puppetdb::master::config', type: :class do
         end
 
         context 'when using default values' do
-          it { is_expected.to contain_package('puppetdb-termini').with(ensure: 'present') }
+          it { is_expected.to contain_package(termini_package_name).with(ensure: 'present') }
           it { is_expected.to contain_puppetdb_conn_validator('puppetdb_conn').with(test_url: '/pdb/meta/v1/version') }
         end
 

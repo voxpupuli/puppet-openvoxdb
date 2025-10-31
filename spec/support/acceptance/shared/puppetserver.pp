@@ -24,23 +24,6 @@ if $facts['os']['family'] == 'RedHat' {
     -> Package['disable-dnf-postgresql-module']
     -> Package <| tag == 'postgresql' |>
   }
-
-  # Work-around EL systemd in docker with cgroupsv1? issue and forked services
-  # Without this, the puppet agent will stall for 300 seconds waiting for
-  # the service to start... then miserably fail.
-  # systemd error message:
-  #     New main PID 1411 does not belong to service, and PID file is not
-  #     owned by root. Refusing.
-  # PIDFile is not needed, but it cannot be reset by a drop-in, therefor the
-  # original unit must be modified
-  file_line { 'puppetserver-unit-remove-pidfile':
-    path               => '/lib/systemd/system/puppetserver.service',
-    line               => '#PIDFile=/run/puppetlabs/puppetserver.pid',
-    match              => '^PIDFile.*',
-    append_on_no_match => false,
-    require            => Package['puppetserver'],
-    notify             => Service['puppetserver'],
-  }
 }
 
 $sysconfdir = $facts['os']['family'] ? {
@@ -48,16 +31,20 @@ $sysconfdir = $facts['os']['family'] ? {
   default  => '/etc/sysconfig',
 }
 
-package { 'puppetserver':
-  ensure => installed,
+case fact('os.family') {
+  'Archlinux': {
+    $puppetserver_package = 'puppetserver'
+  }
+  'Debian', 'RedHat', 'Suse': {
+    $puppetserver_package = 'openvox-server'
+  }
+  default: {
+    fail("The fact 'os.family' is set to ${fact('os.family')} which is not supported by the puppetdb module.")
+  }
 }
-# savagely disable dropsonde
-~> file {
-  [
-    '/opt/puppetlabs/server/data/puppetserver/dropsonde/bin/dropsonde',
-    '/opt/puppetlabs/server/apps/puppetserver/cli/apps/dropsonde',
-  ]:
-    ensure => absent,
+
+package { $puppetserver_package:
+  ensure => installed,
 }
 -> exec { '/opt/puppetlabs/bin/puppetserver ca setup':
   creates => '/etc/puppetlabs/puppetserver/ca/ca_crt.pem',

@@ -919,6 +919,7 @@ The following parameters are available in the `puppetdb::database::postgresql` c
 * [`listen_addresses`](#-puppetdb--database--postgresql--listen_addresses)
 * [`puppetdb_server`](#-puppetdb--database--postgresql--puppetdb_server)
 * [`database_name`](#-puppetdb--database--postgresql--database_name)
+* [`database_locale`](#-puppetdb--database--postgresql--database_locale)
 * [`database_username`](#-puppetdb--database--postgresql--database_username)
 * [`database_password`](#-puppetdb--database--postgresql--database_password)
 * [`database_port`](#-puppetdb--database--postgresql--database_port)
@@ -962,6 +963,14 @@ Data type: `Any`
 Sets the name of the database. Defaults to `puppetdb`.
 
 Default value: `$puppetdb::params::database_name`
+
+##### <a name="-puppetdb--database--postgresql--database_locale"></a>`database_locale`
+
+Data type: `Any`
+
+Sets the locale of the database. Defaults to `C.UTF-8`.
+
+Default value: `$puppetdb::params::database_locale`
 
 ##### <a name="-puppetdb--database--postgresql--database_username"></a>`database_username`
 

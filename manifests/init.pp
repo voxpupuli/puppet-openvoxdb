@@ -345,7 +345,7 @@
 # @param postgresql_password_encryption
 #   PostgreSQL password authentication method, either `md5` or `scram-sha-256`
 #
-class puppetdb (
+class openvoxdb (
   $listen_address                          = $puppetdb::params::listen_address,
   $listen_port                             = $puppetdb::params::listen_port,
   $disable_cleartext                       = $puppetdb::params::disable_cleartext,

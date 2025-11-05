@@ -1,5 +1,8 @@
 # Managed by modulesync - DO NOT EDIT
 # https://voxpupuli.org/docs/updating-files-managed-with-modulesync/
+# Just as a test
+--no-autoloader_layout-check
+--no-inherits_across_namespaces-check
 
 --fail-on-warnings
 --no-parameter_documentation-check

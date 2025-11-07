@@ -24,7 +24,7 @@ describe 'puppetdb::master::report_processor', type: :class do
             with(
               'ensure' => 'absent',
               'path' => '/etc/puppet/puppet.conf',
-              'section' => 'master',
+              'section' => 'server',
               'setting' => 'reports',
               'subsetting' => 'puppetdb',
               'subsetting_separator' => ','
@@ -44,7 +44,7 @@ describe 'puppetdb::master::report_processor', type: :class do
             with(
               'ensure' => 'present',
               'path' => '/etc/puppet/puppet.conf',
-              'section' => 'master',
+              'section' => 'server',
               'setting' => 'reports',
               'subsetting' => 'puppetdb',
               'subsetting_separator' => ','

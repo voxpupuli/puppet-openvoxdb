@@ -1,6 +1,6 @@
 {
   "name": "puppet-openvoxdb",
-  "version": "9.0.0-rc0",
+  "version": "9.0.0",
   "author": "Vox Pupuli",
   "summary": "Installs PostgreSQL and OpenVoxDB, sets up the connection to OpenVox Server.",
   "license": "Apache-2.0",

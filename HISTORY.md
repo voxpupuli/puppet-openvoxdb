@@ -1,6 +1,48 @@
-## [7.14.0] (2023/10/09)
-* Owner of puppetdb config.ini is now root
-* Remove support for EOL OSes CentOS 6, Debian 8 & 9.
+## [v8.1.0](https://github.com/puppetlabs/puppetlabs-puppetdb/tree/v8.1.0) - (2024-05-07)
+
+[Full Changelog](https://github.com/puppetlabs/puppetlabs-puppetdb/compare/v8.0.1...v8.1.0)
+
+### Added
+
+- Add a `puppetdb_version` fact with PuppetDB version [#404](https://github.com/puppetlabs/puppetlabs-puppetdb/pull/404) ([rwaffen](https://github.com/rwaffen))
+- Restrict configuration file permissions [#343](https://github.com/puppetlabs/puppetlabs-puppetdb/pull/343) ([smortex](https://github.com/smortex))
+- Hide passwords from output [#320](https://github.com/puppetlabs/puppetlabs-puppetdb/pull/320) ([gfa](https://github.com/gfa))
+
+### Fixed
+
+- set encoding when creating the DB [#359](https://github.com/puppetlabs/puppetlabs-puppetdb/pull/359) ([elfranne](https://github.com/elfranne))
+- cron puppetdb-dlo-cleanup requires package [#321](https://github.com/puppetlabs/puppetlabs-puppetdb/pull/321) ([glennaaldering](https://github.com/glennaaldering))
+
+## [v8.0.1](https://github.com/puppetlabs/puppetlabs-puppetdb/tree/v8.0.1) - 2024-05-02
+
+[Full Changelog](https://github.com/puppetlabs/puppetlabs-puppetdb/compare/v8.0.0...v8.0.1)
+
+### Fixed
+
+- Fix lower bound the of puppetlabs-postgresql dependency [#402](https://github.com/puppetlabs/puppetlabs-puppetdb/pull/402) ([smortex](https://github.com/smortex))
+
+## [v8.0.0](https://github.com/puppetlabs/puppetlabs-puppetdb/tree/v8.0.0) - 2024-04-30
+
+[Full Changelog](https://github.com/puppetlabs/puppetlabs-puppetdb/compare/7.14.0...v8.0.0)
+
+## [7.14.0](https://github.com/puppetlabs/puppetlabs-puppetdb/tree/7.14.0) - 2023-10-09
+
+[Full Changelog](https://github.com/puppetlabs/puppetlabs-puppetdb/compare/7.13.0...7.14.0)
+
+### Changed
+
+- Drop EoL Debian 8/9 [#347](https://github.com/puppetlabs/puppetlabs-puppetdb/pull/347) ([bastelfreak](https://github.com/bastelfreak))
+- Drop EoL CentOS 6 [#346](https://github.com/puppetlabs/puppetlabs-puppetdb/pull/346) ([bastelfreak](https://github.com/bastelfreak))
+
+### Added
+
+- Relax dependency requirements [#367](https://github.com/puppetlabs/puppetlabs-puppetdb/pull/367) ([smortex](https://github.com/smortex))
+- Allow newer dependencies [#364](https://github.com/puppetlabs/puppetlabs-puppetdb/pull/364) ([saz](https://github.com/saz))
+- Set owner of server config.ini to root [#358](https://github.com/puppetlabs/puppetlabs-puppetdb/pull/358) ([ekohl](https://github.com/ekohl))
+
+### Fixed
+
+- Fix "has no parameter named 'puppetdb_user'" [#369](https://github.com/puppetlabs/puppetlabs-puppetdb/pull/369) ([cocker-cc](https://github.com/cocker-cc))
 
 ## [7.13.0] (2023/04/19)
 * Replace usage of legacy ::osfamily fact with structured form

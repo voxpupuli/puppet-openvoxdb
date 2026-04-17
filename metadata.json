@@ -85,6 +85,12 @@
         "22.04",
         "24.04"
       ]
+    },
+    {
+      "operatingsystem": "Gentoo",
+      "operatingsystemrelease": [
+        "2.18"
+      ]
     }
   ],
   "requirements": [
@@ -94,3 +100,4 @@
     }
   ]
 }
+

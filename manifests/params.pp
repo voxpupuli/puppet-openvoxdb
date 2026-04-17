@@ -115,7 +115,7 @@ class openvoxdb::params {
       $puppetdb_group      = '_puppetdb'
       $puppetdb_initconf   = undef
     }
-    'RedHat', 'Suse': {
+    'RedHat', 'Suse', 'Gentoo': {
       $puppetdb_package    = 'openvoxdb'
       $terminus_package    = 'openvoxdb-termini'
       $etcdir              = '/etc/puppetlabs/puppetdb'

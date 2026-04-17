@@ -11,7 +11,7 @@ describe 'openvoxdb::master::config', type: :class do
         case facts[:os]['family']
         when 'Archlinux', 'OpenBSD'
           'puppetdb-termini'
-        when 'Debian', 'RedHat', 'Suse'
+        when 'Debian', 'RedHat', 'Suse', 'Gentoo'
           'openvoxdb-termini'
         end
       end

@@ -111,6 +111,7 @@ The following parameters are available in the `openvoxdb` class:
 * [`java_args`](#-openvoxdb--java_args)
 * [`merge_default_java_args`](#-openvoxdb--merge_default_java_args)
 * [`max_threads`](#-openvoxdb--max_threads)
+* [`puppetdb_version`](#-openvoxdb--puppetdb_version)
 * [`read_database_host`](#-openvoxdb--read_database_host)
 * [`read_database_port`](#-openvoxdb--read_database_port)
 * [`read_database_username`](#-openvoxdb--read_database_username)
@@ -580,6 +581,14 @@ Jetty option to explicitly set `max-threads`. Defaults to `undef`, so the
 PuppetDB-Jetty default is used.
 
 Default value: `$openvoxdb::params::max_threads`
+
+##### <a name="-openvoxdb--puppetdb_version"></a>`puppetdb_version`
+
+Data type: `String[1]`
+
+Version of the PuppetDB package to install. Defaults to `present`
+
+Default value: `$openvoxdb::params::puppetdb_version`
 
 ##### <a name="-openvoxdb--read_database_host"></a>`read_database_host`
 

@@ -194,6 +194,9 @@
 #   Jetty option to explicitly set `max-threads`. Defaults to `undef`, so the
 #   PuppetDB-Jetty default is used.
 #
+# @param puppetdb_version
+#   Version of the PuppetDB package to install. Defaults to `present`
+#
 # @param read_database_host
 #   *This parameter must be set to use another PuppetDB instance for queries.*
 #
@@ -399,6 +402,7 @@ class openvoxdb (
   String[1] $puppetdb_user                                               = $openvoxdb::params::puppetdb_user,
   String[1] $puppetdb_group                                              = $openvoxdb::params::puppetdb_group,
   Stdlib::Host $puppetdb_server                                          = $openvoxdb::params::puppetdb_server,
+  String[1] $puppetdb_version                                            = $openvoxdb::params::puppetdb_version,
   Optional[Stdlib::Host] $read_database_host                             = $openvoxdb::params::read_database_host,
   Optional[Stdlib::Port::Unprivileged] $read_database_port               = $openvoxdb::params::read_database_port,
   Optional[String] $read_database_username                               = $openvoxdb::params::read_database_username,

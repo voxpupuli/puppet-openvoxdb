@@ -4,6 +4,26 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v9.1.0](https://github.com/voxpupuli/puppet-openvoxdb/tree/v9.1.0) (2026-05-11)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-openvoxdb/compare/v9.0.1...v9.1.0)
+
+**Implemented enhancements:**
+
+- no more masters - use the correct section [\#1](https://github.com/voxpupuli/puppet-openvoxdb/pull/1) ([duritong](https://github.com/duritong))
+
+**Closed issues:**
+
+- Can't set OpenVoxDB version [\#41](https://github.com/voxpupuli/puppet-openvoxdb/issues/41)
+- Set fact cache to be json always [\#26](https://github.com/voxpupuli/puppet-openvoxdb/issues/26)
+- Rename to puppet-openvoxdb [\#15](https://github.com/voxpupuli/puppet-openvoxdb/issues/15)
+
+**Merged pull requests:**
+
+- feat: add parameter to specify package version [\#42](https://github.com/voxpupuli/puppet-openvoxdb/pull/42) ([giacomd](https://github.com/giacomd))
+- set default fact cache to json [\#38](https://github.com/voxpupuli/puppet-openvoxdb/pull/38) ([corporate-gadfly](https://github.com/corporate-gadfly))
+- feat: add EL10 support [\#28](https://github.com/voxpupuli/puppet-openvoxdb/pull/28) ([d1nuc0m](https://github.com/d1nuc0m))
+
 ## [v9.0.1](https://github.com/voxpupuli/puppet-openvoxdb/tree/v9.0.1) (2026-03-25)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-openvoxdb/compare/v8.1.0...v9.0.1)

@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v9.1.1](https://github.com/voxpupuli/puppet-openvoxdb/tree/v9.1.1) (2026-05-17)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-openvoxdb/compare/v9.1.0...v9.1.1)
+
+**Fixed bugs:**
+
+- openvoxdb\_version fact: Fix binary name [\#44](https://github.com/voxpupuli/puppet-openvoxdb/pull/44) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [v9.1.0](https://github.com/voxpupuli/puppet-openvoxdb/tree/v9.1.0) (2026-05-11)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-openvoxdb/compare/v9.0.1...v9.1.0)

@@ -43,7 +43,7 @@ case fact('os.family') {
   'Archlinux': {
     $puppetserver_package = 'puppetserver'
   }
-  'Debian', 'RedHat', 'Suse': {
+  'Debian', 'RedHat', 'Suse', 'Gentoo': {
     $puppetserver_package = 'openvox-server'
   }
   default: {

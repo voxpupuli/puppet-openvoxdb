@@ -7,7 +7,7 @@ describe 'openvoxdb_version' do
 
   context 'when puppetdb is available' do
     before do
-      allow(Facter::Util::Resolution).to receive(:which).with('openvoxdb').and_return('/usr/bin/puppetdb')
+      allow(Facter::Util::Resolution).to receive(:which).with('puppetdb').and_return('/usr/bin/puppetdb')
     end
 
     context 'on a default system' do
@@ -29,7 +29,7 @@ describe 'openvoxdb_version' do
 
   context 'when puppetdb is not available' do
     before do
-      allow(Facter::Util::Resolution).to receive(:which).with('openvoxdb').and_return(nil)
+      allow(Facter::Util::Resolution).to receive(:which).with('puppetdb').and_return(nil)
     end
 
     it 'returns nil' do

@@ -117,9 +117,10 @@ class openvoxdb::master::config (
   $puppetdb_startup_timeout    = $openvoxdb::params::puppetdb_startup_timeout,
   $test_url                    = $openvoxdb::params::test_url,
   $restart_puppet              = true,
+  String[1] $puppetdb_version  = $openvoxdb::puppetdb_version,
 ) inherits openvoxdb::params {
   package { $terminus_package:
-    ensure => $openvoxdb::params::puppetdb_version,
+    ensure => $puppetdb_version,
   }
 
   if ($strict_validation) {

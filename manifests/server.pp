@@ -384,6 +384,7 @@ class openvoxdb::server (
   String[1] $cleanup_timer_interval        = $openvoxdb::params::cleanup_timer_interval,
   Integer[1] $dlo_max_age                  = $openvoxdb::params::dlo_max_age,
   Optional[Stdlib::Absolutepath] $java_bin = $openvoxdb::params::java_bin,
+  String[1] $puppetdb_version              = $openvoxdb::puppetdb_version,
 ) inherits openvoxdb::params {
   # Apply necessary suffix if zero is specified.
   # Can we drop this in the next major release?
@@ -426,7 +427,7 @@ class openvoxdb::server (
   }
 
   package { $puppetdb_package:
-    ensure => $openvoxdb::params::puppetdb_version,
+    ensure => $puppetdb_version,
     notify => Service[$puppetdb_service],
   }
 

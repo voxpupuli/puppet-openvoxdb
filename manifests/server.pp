@@ -119,6 +119,9 @@
 # @param puppetdb_package
 #   The PuppetDB package name in the package manager. Defaults to `present`.
 #
+# @param puppetdb_version
+#   Version of the PuppetDB package to install. Defaults to `present`
+#
 # @param puppetdb_service
 #   The name of the PuppetDB service. Defaults to `puppetdb`.
 #
@@ -350,6 +353,7 @@ class openvoxdb::server (
   $conn_max_age                            = $openvoxdb::params::conn_max_age,
   $conn_lifetime                           = $openvoxdb::params::conn_lifetime,
   $puppetdb_package                        = $openvoxdb::params::puppetdb_package,
+  String[1] $puppetdb_version              = $openvoxdb::params::puppetdb_version,
   $puppetdb_service                        = $openvoxdb::params::puppetdb_service,
   $puppetdb_service_status                 = $openvoxdb::params::puppetdb_service_status,
   $puppetdb_user                           = $openvoxdb::params::puppetdb_user,

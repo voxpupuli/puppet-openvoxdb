@@ -1388,6 +1388,7 @@ The following parameters are available in the `openvoxdb::server` class:
 * [`conn_max_age`](#-openvoxdb--server--conn_max_age)
 * [`conn_lifetime`](#-openvoxdb--server--conn_lifetime)
 * [`puppetdb_package`](#-openvoxdb--server--puppetdb_package)
+* [`puppetdb_version`](#-openvoxdb--server--puppetdb_version)
 * [`puppetdb_service`](#-openvoxdb--server--puppetdb_service)
 * [`puppetdb_service_status`](#-openvoxdb--server--puppetdb_service_status)
 * [`puppetdb_user`](#-openvoxdb--server--puppetdb_user)
@@ -1700,6 +1701,14 @@ Data type: `Any`
 The PuppetDB package name in the package manager. Defaults to `present`.
 
 Default value: `$openvoxdb::params::puppetdb_package`
+
+##### <a name="-openvoxdb--server--puppetdb_version"></a>`puppetdb_version`
+
+Data type: `String[1]`
+
+Version of the PuppetDB package to install. Defaults to `present`
+
+Default value: `$openvoxdb::params::puppetdb_version`
 
 ##### <a name="-openvoxdb--server--puppetdb_service"></a>`puppetdb_service`
 

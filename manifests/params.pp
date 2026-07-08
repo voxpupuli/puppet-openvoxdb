@@ -126,6 +126,17 @@ class openvoxdb::params {
       $puppetdb_group      = 'puppetdb'
       $puppetdb_initconf   = '/etc/sysconfig/puppetdb'
     }
+    'Gentoo': {
+      $puppetdb_package    = 'app-admin/openvoxdb'
+      $terminus_package    = 'app-admin/openvoxdb-termini'
+      $etcdir              = '/etc/puppetlabs/puppetdb'
+      $puppet_confdir      = '/etc/puppetlabs/puppet'
+      $puppet_service_name = 'puppetserver'
+      $vardir              = '/opt/puppetlabs/server/data/puppetdb'
+      $puppetdb_user       = 'puppetdb'
+      $puppetdb_group      = 'puppetdb'
+      $puppetdb_initconf   = '/etc/sysconfig/puppetdb'
+    }
     default: {
       fail("The fact 'os.family' is set to ${fact('os.family')} which is not supported by the puppetdb module.")
     }

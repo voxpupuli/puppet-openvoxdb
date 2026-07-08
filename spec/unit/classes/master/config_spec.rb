@@ -13,6 +13,8 @@ describe 'openvoxdb::master::config', type: :class do
           'puppetdb-termini'
         when 'Debian', 'RedHat', 'Suse'
           'openvoxdb-termini'
+        when 'Gentoo'
+          'app-admin/openvoxdb-termini'
         end
       end
 

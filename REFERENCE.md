@@ -1143,6 +1143,7 @@ The following parameters are available in the `openvoxdb::master::config` class:
 * [`puppet_conf`](#-openvoxdb--master--config--puppet_conf)
 * [`masterless`](#-openvoxdb--master--config--masterless)
 * [`terminus_package`](#-openvoxdb--master--config--terminus_package)
+* [`terminus_package_version`](#-openvoxdb--master--config--terminus_package_version)
 * [`puppet_service_name`](#-openvoxdb--master--config--puppet_service_name)
 * [`puppetdb_startup_timeout`](#-openvoxdb--master--config--puppetdb_startup_timeout)
 * [`test_url`](#-openvoxdb--master--config--test_url)
@@ -1310,6 +1311,14 @@ Data type: `Any`
 Name of the package to use that represents the PuppetDB terminus code.
 
 Default value: `$openvoxdb::params::terminus_package`
+
+##### <a name="-openvoxdb--master--config--terminus_package_version"></a>`terminus_package_version`
+
+Data type: `Any`
+
+Version of the OpenVoxDB terminus package to install. Defaults to `present`
+
+Default value: `$openvoxdb::params::terminus_package_version`
 
 ##### <a name="-openvoxdb--master--config--puppet_service_name"></a>`puppet_service_name`
 

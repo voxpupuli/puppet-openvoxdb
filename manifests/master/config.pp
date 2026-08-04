@@ -68,6 +68,9 @@
 # @param terminus_package
 #   Name of the package to use that represents the PuppetDB terminus code.
 #
+# @param terminus_package_version
+#   Version of the OpenVoxDB terminus package to install. Defaults to `present`
+#
 # @param puppet_service_name
 #   Name of the service that represents Puppet. You can change this to `apache2` or
 #   `httpd` depending on your operating system, if you plan on having Puppet run
@@ -113,13 +116,14 @@ class openvoxdb::master::config (
   $puppet_confdir              = $openvoxdb::params::puppet_confdir,
   $puppet_conf                 = $openvoxdb::params::puppet_conf,
   $terminus_package            = $openvoxdb::params::terminus_package,
+  $terminus_package_version    = $openvoxdb::params::terminus_package_version,
   $puppet_service_name         = $openvoxdb::params::puppet_service_name,
   $puppetdb_startup_timeout    = $openvoxdb::params::puppetdb_startup_timeout,
   $test_url                    = $openvoxdb::params::test_url,
   $restart_puppet              = true,
 ) inherits openvoxdb::params {
   package { $terminus_package:
-    ensure => $openvoxdb::params::puppetdb_version,
+    ensure => $terminus_package_version,
   }
 
   if ($strict_validation) {

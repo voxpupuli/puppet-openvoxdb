@@ -4,6 +4,27 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v9.2.0](https://github.com/voxpupuli/puppet-openvoxdb/tree/v9.2.0) (2026-09-05)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-openvoxdb/compare/v9.1.1...v9.2.0)
+
+**Implemented enhancements:**
+
+- Technical Debt - EL10 support [\#40](https://github.com/voxpupuli/puppet-openvoxdb/issues/40)
+- feat: add puppetdb\_version parameter also to openvoxdb::server [\#48](https://github.com/voxpupuli/puppet-openvoxdb/pull/48) ([giacomd](https://github.com/giacomd))
+
+**Fixed bugs:**
+
+- replace deprecated Facter::Util::Resolution.which [\#52](https://github.com/voxpupuli/puppet-openvoxdb/pull/52) ([corporate-gadfly](https://github.com/corporate-gadfly))
+
+**Closed issues:**
+
+- puppetdb\_version variable from init.pp never used [\#46](https://github.com/voxpupuli/puppet-openvoxdb/issues/46)
+
+**Merged pull requests:**
+
+- remove workarounds that are no longer necessary [\#49](https://github.com/voxpupuli/puppet-openvoxdb/pull/49) ([corporate-gadfly](https://github.com/corporate-gadfly))
+
 ## [v9.1.1](https://github.com/voxpupuli/puppet-openvoxdb/tree/v9.1.1) (2026-05-17)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-openvoxdb/compare/v9.1.0...v9.1.1)

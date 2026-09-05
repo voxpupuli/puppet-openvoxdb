@@ -1,5 +1,5 @@
 Facter.add(:openvoxdb_version) do
-  confine { Facter::Util::Resolution.which('puppetdb') }
+  confine { Facter::Core::Execution.which('puppetdb') }
 
   setcode do
     output = Facter::Core::Execution.execute('puppetdb --version')

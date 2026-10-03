@@ -85,6 +85,9 @@
         "22.04",
         "24.04"
       ]
+    },
+    {
+      "operatingsystem": "Gentoo"
     }
   ],
   "requirements": [

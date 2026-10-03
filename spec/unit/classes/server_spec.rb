@@ -20,6 +20,8 @@ describe 'openvoxdb::server', type: :class do
       'puppetdb'
     when 'Debian', 'RedHat', 'Suse'
       'openvoxdb'
+    when 'Gentoo'
+      'app-admin/openvoxdb'
     end
   end
 

@@ -46,6 +46,9 @@ case fact('os.family') {
   'Debian', 'RedHat', 'Suse': {
     $puppetserver_package = 'openvox-server'
   }
+  'Gentoo': {
+    $puppetserver_package = 'app-admin/openvox-server'
+  }
   default: {
     fail("The fact 'os.family' is set to ${fact('os.family')} which is not supported by the puppetdb module.")
   }

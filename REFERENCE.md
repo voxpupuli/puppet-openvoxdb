@@ -944,6 +944,7 @@ The following parameters are available in the `openvoxdb::database::postgresql` 
 * [`read_database_host`](#-openvoxdb--database--postgresql--read_database_host)
 * [`password_sensitive`](#-openvoxdb--database--postgresql--password_sensitive)
 * [`password_encryption`](#-openvoxdb--database--postgresql--password_encryption)
+* [`manage_dnf_module`](#-openvoxdb--database--postgresql--manage_dnf_module)
 
 ##### <a name="-openvoxdb--database--postgresql--listen_addresses"></a>`listen_addresses`
 
@@ -1118,6 +1119,14 @@ Data type: `Postgresql::Pg_password_encryption`
 PostgreSQL password authentication method, either `md5` or `scram-sha-256`
 
 Default value: `$openvoxdb::params::password_encryption`
+
+##### <a name="-openvoxdb--database--postgresql--manage_dnf_module"></a>`manage_dnf_module`
+
+Data type: `Any`
+
+
+
+Default value: `$openvoxdb::params::manage_pg_dnf_module`
 
 ### <a name="openvoxdb--master--config"></a>`openvoxdb::master::config`
 
@@ -2237,4 +2246,3 @@ Data type: `Optional[Hash]`
 The Openvoxdb::Ttl data type.
 
 Alias of `Pattern[/^\d+(d|h|m|s|ms)$/]`
-

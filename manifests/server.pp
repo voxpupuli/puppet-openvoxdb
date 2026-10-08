@@ -430,7 +430,7 @@ class openvoxdb::server (
   }
 
   package { $puppetdb_package:
-    ensure => $openvoxdb::params::puppetdb_version,
+    ensure => $puppetdb_version,
     notify => Service[$puppetdb_service],
   }
 

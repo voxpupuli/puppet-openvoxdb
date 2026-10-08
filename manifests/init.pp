@@ -474,6 +474,7 @@ class openvoxdb (
     conn_max_age                      => $conn_max_age,
     conn_lifetime                     => $conn_lifetime,
     puppetdb_package                  => $puppetdb_package,
+    puppetdb_version                  => $puppetdb_version,
     puppetdb_service                  => $puppetdb_service,
     puppetdb_service_status           => $puppetdb_service_status,
     confdir                           => $confdir,

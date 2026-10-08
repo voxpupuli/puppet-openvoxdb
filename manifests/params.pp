@@ -83,48 +83,52 @@ class openvoxdb::params {
 
   case fact('os.family') {
     'Debian': {
-      $puppetdb_package    = 'openvoxdb'
-      $terminus_package    = 'openvoxdb-termini'
-      $etcdir              = '/etc/puppetlabs/puppetdb'
-      $puppet_confdir      = '/etc/puppetlabs/puppet'
-      $puppet_service_name = 'puppetserver'
-      $vardir              = '/opt/puppetlabs/server/data/puppetdb'
-      $puppetdb_user       = 'puppetdb'
-      $puppetdb_group      = 'puppetdb'
-      $puppetdb_initconf   = '/etc/default/puppetdb'
+      $puppetdb_package         = 'openvoxdb'
+      $terminus_package         = 'openvoxdb-termini'
+      $terminus_package_version = 'present'
+      $etcdir                   = '/etc/puppetlabs/puppetdb'
+      $puppet_confdir           = '/etc/puppetlabs/puppet'
+      $puppet_service_name      = 'puppetserver'
+      $vardir                   = '/opt/puppetlabs/server/data/puppetdb'
+      $puppetdb_user            = 'puppetdb'
+      $puppetdb_group           = 'puppetdb'
+      $puppetdb_initconf        = '/etc/default/puppetdb'
     }
     'FreeBSD': {
-      $puppetdb_package    = "openvoxdb${openvoxdb::params::puppetdb_major_version}"
-      $terminus_package    = "openvoxdb-terminus${openvoxdb::params::puppetdb_major_version}"
-      $etcdir              = '/usr/local/etc/puppetdb'
-      $puppet_confdir      = '/usr/local/etc/puppet'
-      $puppet_service_name = 'puppetserver'
-      $vardir              = '/var/db/puppetdb'
-      $puppetdb_user       = '_puppetdb'
-      $puppetdb_group      = '_puppetdb'
-      $puppetdb_initconf   = undef
+      $puppetdb_package         = "openvoxdb${openvoxdb::params::puppetdb_major_version}"
+      $terminus_package         = "openvoxdb-terminus${openvoxdb::params::puppetdb_major_version}"
+      $terminus_package_version = 'present'
+      $etcdir                   = '/usr/local/etc/puppetdb'
+      $puppet_confdir           = '/usr/local/etc/puppet'
+      $puppet_service_name      = 'puppetserver'
+      $vardir                   = '/var/db/puppetdb'
+      $puppetdb_user            = '_puppetdb'
+      $puppetdb_group           = '_puppetdb'
+      $puppetdb_initconf        = undef
     }
     'OpenBSD': {
-      $puppetdb_package    = 'openvoxdb'
-      $terminus_package    = 'openvoxdb-termini'
-      $etcdir              = '/etc/puppetlabs/puppetdb'
-      $puppet_confdir      = '/etc/puppetlabs/puppet'
-      $puppet_service_name = undef
-      $vardir              = '/opt/puppetlabs/server/data/puppetdb'
-      $puppetdb_user       = '_puppetdb'
-      $puppetdb_group      = '_puppetdb'
-      $puppetdb_initconf   = undef
+      $puppetdb_package         = 'openvoxdb'
+      $terminus_package         = 'openvoxdb-termini'
+      $terminus_package_version = 'present'
+      $etcdir                   = '/etc/puppetlabs/puppetdb'
+      $puppet_confdir           = '/etc/puppetlabs/puppet'
+      $puppet_service_name      = undef
+      $vardir                   = '/opt/puppetlabs/server/data/puppetdb'
+      $puppetdb_user            = '_puppetdb'
+      $puppetdb_group           = '_puppetdb'
+      $puppetdb_initconf        = undef
     }
     'RedHat', 'Suse': {
-      $puppetdb_package    = 'openvoxdb'
-      $terminus_package    = 'openvoxdb-termini'
-      $etcdir              = '/etc/puppetlabs/puppetdb'
-      $puppet_confdir      = '/etc/puppetlabs/puppet'
-      $puppet_service_name = 'puppetserver'
-      $vardir              = '/opt/puppetlabs/server/data/puppetdb'
-      $puppetdb_user       = 'puppetdb'
-      $puppetdb_group      = 'puppetdb'
-      $puppetdb_initconf   = '/etc/sysconfig/puppetdb'
+      $puppetdb_package         = 'openvoxdb'
+      $terminus_package         = 'openvoxdb-termini'
+      $terminus_package_version = 'present'
+      $etcdir                   = '/etc/puppetlabs/puppetdb'
+      $puppet_confdir           = '/etc/puppetlabs/puppet'
+      $puppet_service_name      = 'puppetserver'
+      $vardir                   = '/opt/puppetlabs/server/data/puppetdb'
+      $puppetdb_user            = 'puppetdb'
+      $puppetdb_group           = 'puppetdb'
+      $puppetdb_initconf        = '/etc/sysconfig/puppetdb'
     }
     default: {
       fail("The fact 'os.family' is set to ${fact('os.family')} which is not supported by the puppetdb module.")

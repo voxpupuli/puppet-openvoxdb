@@ -50,7 +50,8 @@ class openvoxdb::params {
   $node_purge_ttl         = '14d'
   $report_ttl             = '14d'
 
-  $facts_blacklist        = undef
+  $facts_blocklist        = undef
+  $facts_blocklist_type   = undef
 
   $gc_interval               = 60
   $node_purge_gc_batch_limit = 25

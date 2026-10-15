@@ -53,7 +53,9 @@
 #   Defaults to `undef`.
 #
 # @param migrate
-#   If `true`, puppetdb will automatically migrate to the latest database format at startup. If `false`, if the database format supplied by this version of PuppetDB doesn't match the version expected (whether newer or older), PuppetDB will exit with an error status. Defaults to `true`.
+#   If `true`, puppetdb will automatically migrate to the latest database format at startup.
+#   If `false`, if the database format supplied by this version of PuppetDB doesn't match the
+#   version expected (whether newer or older), PuppetDB will exit with an error status. Defaults to `true`.
 #
 # @param manage_dbserver
 #   If true, the PostgreSQL server will be managed by this module. Defaults to `true`.
@@ -120,8 +122,14 @@
 #   The length of time reports should be stored before being deleted. (defaults to
 #   `14d`, which is a 14-day period). This option is supported in PuppetDB >= 1.1.0.
 #
-# @param facts_blacklist
+# @param facts_blocklist
 #   A list of fact names to be ignored whenever submitted.
+#   The $facts_blocklist_type determines whether the names are matched literally or
+#   as Java regular expressions.
+#
+# @param facts_blocklist_type
+#   When set to "literal" (or not set) the $facts_blocklist names will be matched literally.
+#   When set to "regex" (the only other legal value), the names will be matched as Java regular expressions.
 #
 # @param gc_interval
 #   This controls how often (in minutes) to compact the database. The compaction
@@ -391,7 +399,8 @@ class openvoxdb (
   String[1] $node_ttl                                                    = $openvoxdb::params::node_ttl,
   String[1] $node_purge_ttl                                              = $openvoxdb::params::node_purge_ttl,
   String[1] $report_ttl                                                  = $openvoxdb::params::report_ttl,
-  Optional[Array] $facts_blacklist                                       = $openvoxdb::params::facts_blacklist,
+  Optional[Array] $facts_blocklist                                       = $openvoxdb::params::facts_blocklist,
+  Optional[Enum['literal', 'regex']] $facts_blocklist_type               = $openvoxdb::params::facts_blocklist_type,
   Integer $gc_interval                                                   = $openvoxdb::params::gc_interval,
   Integer $node_purge_gc_batch_limit                                     = $openvoxdb::params::node_purge_gc_batch_limit,
   Integer $conn_max_age                                                  = $openvoxdb::params::conn_max_age,
@@ -468,7 +477,8 @@ class openvoxdb (
     node_ttl                          => $node_ttl,
     node_purge_ttl                    => $node_purge_ttl,
     report_ttl                        => $report_ttl,
-    facts_blacklist                   => $facts_blacklist,
+    facts_blocklist                   => $facts_blocklist,
+    facts_blocklist_type              => $facts_blocklist_type,
     gc_interval                       => $gc_interval,
     node_purge_gc_batch_limit         => $node_purge_gc_batch_limit,
     conn_max_age                      => $conn_max_age,

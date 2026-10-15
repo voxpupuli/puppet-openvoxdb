@@ -5,10 +5,10 @@ describe 'openvoxdb::server::database', type: :class do
 
   it { is_expected.to contain_class('openvoxdb::server::database') }
 
-  describe 'when using facts_blacklist' do
+  describe 'when using (literal) facts_blocklist' do
     let(:params) do
       {
-        'facts_blacklist' => %w[
+        'facts_blocklist' => %w[
           one_fact
           another_fact
         ],
@@ -16,14 +16,66 @@ describe 'openvoxdb::server::database', type: :class do
     end
 
     it {
-      is_expected.to contain_ini_setting('puppetdb_facts_blacklist')
+      is_expected.to contain_ini_setting('puppetdb_facts_blocklist')
         .with(
           'ensure'  => 'present',
           'path'    => '/etc/puppetlabs/puppetdb/conf.d/database.ini',
           'section' => 'database',
-          'setting' => 'facts-blacklist',
+          'setting' => 'facts-blocklist',
           'value'   => 'one_fact, another_fact',
         )
+    }
+  end
+
+  describe 'when using facts_blocklist_type' do
+    let(:params) do
+      {
+        'facts_blocklist_type' => 'regex',
+      }
+    end
+
+    it {
+      is_expected.to contain_ini_setting('puppetdb_facts_blocklist_type')
+        .with(
+          'ensure'  => 'present',
+          'path'    => '/etc/puppetlabs/puppetdb/conf.d/database.ini',
+          'section' => 'database',
+          'setting' => 'facts-blocklist-type',
+          'value'   => 'regex',
+        )
+    }
+  end
+
+  describe 'deprecated facts-blacklist is ensured absent' do
+    it {
+      is_expected.to contain_ini_setting('puppetdb_facts_blacklist (deprecated)')
+        .with(
+          'ensure'  => 'absent',
+          'path'    => '/etc/puppetlabs/puppetdb/conf.d/database.ini',
+          'section' => 'database',
+          'setting' => 'facts-blacklist',
+        )
+    }
+  end
+
+  describe 'without any facts_blocklist settings' do
+    it {
+      is_expected.to contain_ini_setting('puppetdb_facts_blocklist')
+        .with(
+          'ensure'  => 'absent',
+          'path'    => '/etc/puppetlabs/puppetdb/conf.d/database.ini',
+          'section' => 'database',
+          'setting' => 'facts-blocklist',
+          'value'   => '',
+        )
+      is_expected.to contain_ini_setting('puppetdb_facts_blocklist_type')
+        .with(
+          'ensure'  => 'absent',
+          'path'    => '/etc/puppetlabs/puppetdb/conf.d/database.ini',
+          'section' => 'database',
+          'setting' => 'facts-blocklist-type',
+        )
+        .without('value')
     }
   end
 

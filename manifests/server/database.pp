@@ -13,7 +13,8 @@ class openvoxdb::server::database (
   $node_ttl                  = $openvoxdb::params::node_ttl,
   $node_purge_ttl            = $openvoxdb::params::node_purge_ttl,
   $report_ttl                = $openvoxdb::params::report_ttl,
-  $facts_blacklist           = $openvoxdb::params::facts_blacklist,
+  $facts_blocklist           = $openvoxdb::params::facts_blocklist,
+  $facts_blocklist_type      = $openvoxdb::params::facts_blocklist_type,
   $gc_interval               = $openvoxdb::params::gc_interval,
   $node_purge_gc_batch_limit = $openvoxdb::params::node_purge_gc_batch_limit,
   $conn_max_age              = $openvoxdb::params::conn_max_age,
@@ -168,16 +169,21 @@ class openvoxdb::server::database (
     }
   }
 
-  if ($facts_blacklist) and length($facts_blacklist) != 0 {
-    $joined_facts_blacklist = join($facts_blacklist, ', ')
-    ini_setting { 'puppetdb_facts_blacklist':
-      setting => 'facts-blacklist',
-      value   => $joined_facts_blacklist,
-    }
-  } else {
-    ini_setting { 'puppetdb_facts_blacklist':
-      ensure  => absent,
-      setting => 'facts-blacklist',
-    }
+  $joined_facts_blocklist = join($facts_blocklist.lest || { [] }, ', ')
+  ini_setting { 'puppetdb_facts_blocklist':
+    ensure  => bool2str(length($joined_facts_blocklist) > 0, 'present', 'absent'),
+    setting => 'facts-blocklist',
+    value   => $joined_facts_blocklist,
+  }
+  # Ensure deprecated setting is absent
+  ini_setting { 'puppetdb_facts_blacklist (deprecated)':
+    ensure  => absent,
+    setting => 'facts-blacklist',
+  }
+
+  ini_setting { 'puppetdb_facts_blocklist_type':
+    ensure  => bool2str($facts_blocklist_type !~ Undef, 'present', 'absent'),
+    setting => 'facts-blocklist-type',
+    value   => $facts_blocklist_type,
   }
 }

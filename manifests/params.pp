@@ -24,6 +24,7 @@ class openvoxdb::params {
     $manage_pg_repo            = false
   }
 
+  $manage_pg_dnf_module         = false
   $postgres_version          = '14'
 
   $puppetdb_major_version = $puppetdb_version ? {

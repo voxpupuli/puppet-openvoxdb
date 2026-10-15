@@ -95,7 +95,8 @@ The following parameters are available in the `openvoxdb` class:
 * [`node_ttl`](#-openvoxdb--node_ttl)
 * [`node_purge_ttl`](#-openvoxdb--node_purge_ttl)
 * [`report_ttl`](#-openvoxdb--report_ttl)
-* [`facts_blacklist`](#-openvoxdb--facts_blacklist)
+* [`facts_blocklist`](#-openvoxdb--facts_blocklist)
+* [`facts_blocklist_type`](#-openvoxdb--facts_blocklist_type)
 * [`gc_interval`](#-openvoxdb--gc_interval)
 * [`node_purge_gc_batch_limit`](#-openvoxdb--node_purge_gc_batch_limit)
 * [`conn_max_age`](#-openvoxdb--conn_max_age)
@@ -279,7 +280,9 @@ Default value: `$openvoxdb::params::cipher_suites`
 
 Data type: `Boolean`
 
-If `true`, puppetdb will automatically migrate to the latest database format at startup. If `false`, if the database format supplied by this version of PuppetDB doesn't match the version expected (whether newer or older), PuppetDB will exit with an error status. Defaults to `true`.
+If `true`, puppetdb will automatically migrate to the latest database format at startup.
+If `false`, if the database format supplied by this version of PuppetDB doesn't match the
+version expected (whether newer or older), PuppetDB will exit with an error status. Defaults to `true`.
 
 Default value: `$openvoxdb::params::migrate`
 
@@ -428,13 +431,24 @@ The length of time reports should be stored before being deleted. (defaults to
 
 Default value: `$openvoxdb::params::report_ttl`
 
-##### <a name="-openvoxdb--facts_blacklist"></a>`facts_blacklist`
+##### <a name="-openvoxdb--facts_blocklist"></a>`facts_blocklist`
 
 Data type: `Optional[Array]`
 
 A list of fact names to be ignored whenever submitted.
+The $facts_blocklist_type determines whether the names are matched literally or
+as Java regular expressions.
 
-Default value: `$openvoxdb::params::facts_blacklist`
+Default value: `$openvoxdb::params::facts_blocklist`
+
+##### <a name="-openvoxdb--facts_blocklist_type"></a>`facts_blocklist_type`
+
+Data type: `Optional[Enum['literal', 'regex']]`
+
+When set to "literal" (or not set) the $facts_blocklist names will be matched literally.
+When set to "regex" (the only other legal value), the names will be matched as Java regular expressions.
+
+Default value: `$openvoxdb::params::facts_blocklist_type`
 
 ##### <a name="-openvoxdb--gc_interval"></a>`gc_interval`
 
@@ -1391,7 +1405,8 @@ The following parameters are available in the `openvoxdb::server` class:
 * [`node_ttl`](#-openvoxdb--server--node_ttl)
 * [`node_purge_ttl`](#-openvoxdb--server--node_purge_ttl)
 * [`report_ttl`](#-openvoxdb--server--report_ttl)
-* [`facts_blacklist`](#-openvoxdb--server--facts_blacklist)
+* [`facts_blocklist`](#-openvoxdb--server--facts_blocklist)
+* [`facts_blocklist_type`](#-openvoxdb--server--facts_blocklist_type)
 * [`gc_interval`](#-openvoxdb--server--gc_interval)
 * [`node_purge_gc_batch_limit`](#-openvoxdb--server--node_purge_gc_batch_limit)
 * [`conn_max_age`](#-openvoxdb--server--conn_max_age)
@@ -1653,13 +1668,24 @@ The length of time reports should be stored before being deleted. (defaults to
 
 Default value: `$openvoxdb::params::report_ttl`
 
-##### <a name="-openvoxdb--server--facts_blacklist"></a>`facts_blacklist`
+##### <a name="-openvoxdb--server--facts_blocklist"></a>`facts_blocklist`
 
 Data type: `Optional[Array]`
 
 A list of fact names to be ignored whenever submitted.
+The $facts_blocklist_type determines whether the names are matched literally or
+as Java regular expressions.
 
-Default value: `$openvoxdb::params::facts_blacklist`
+Default value: `$openvoxdb::params::facts_blocklist`
+
+##### <a name="-openvoxdb--server--facts_blocklist_type"></a>`facts_blocklist_type`
+
+Data type: `Optional[Enum['literal', 'regex']]`
+
+When set to "literal" (or not set) the $facts_blocklist names will be matched literally.
+When set to "regex" (the only other legal value), the names will be matched as Java regular expressions.
+
+Default value: `$openvoxdb::params::facts_blocklist_type`
 
 ##### <a name="-openvoxdb--server--gc_interval"></a>`gc_interval`
 

@@ -102,6 +102,18 @@ describe 'openvoxdb', type: :class do
             )
         }
       end
+
+      context 'when blocking all facts' do
+        let(:params) do
+          {
+            'facts_blocklist'      => ['.*'],
+            'facts_blocklist_type' => 'regex',
+          }
+        end
+
+        it { is_expected.to contain_ini_setting('puppetdb_facts_blocklist').with_value('.*') }
+        it { is_expected.to contain_ini_setting('puppetdb_facts_blocklist_type').with_value('regex') }
+      end
     end
   end
 

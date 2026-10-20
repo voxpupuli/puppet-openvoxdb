@@ -4,7 +4,19 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
-## [v9.2.0](https://github.com/voxpupuli/puppet-openvoxdb/tree/v9.2.0) (2026-09-05)
+## [v9.3.0](https://github.com/voxpupuli/puppet-openvoxdb/tree/v9.3.0) (2026-10-20)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-openvoxdb/compare/v9.2.0...v9.3.0)
+
+**Implemented enhancements:**
+
+- puppetlabs/stdlib: Allow 10.x [\#59](https://github.com/voxpupuli/puppet-openvoxdb/pull/59) ([bastelfreak](https://github.com/bastelfreak))
+
+**Fixed bugs:**
+
+- Actually use puppetdb\_version set as class parameters [\#50](https://github.com/voxpupuli/puppet-openvoxdb/pull/50) ([XMol](https://github.com/XMol))
+
+## [v9.2.0](https://github.com/voxpupuli/puppet-openvoxdb/tree/v9.2.0) (2026-09-24)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-openvoxdb/compare/v9.1.1...v9.2.0)
 

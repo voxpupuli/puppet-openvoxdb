@@ -84,6 +84,7 @@ class openvoxdb::database::postgresql (
   $manage_database             = $openvoxdb::params::manage_database,
   $manage_server               = $openvoxdb::params::manage_dbserver,
   $manage_package_repo         = $openvoxdb::params::manage_pg_repo,
+  $manage_dnf_module           = $openvoxdb::params::manage_pg_dnf_module,
   $postgres_version            = $openvoxdb::params::postgres_version,
   $postgresql_ssl_on           = $openvoxdb::params::postgresql_ssl_on,
   $postgresql_ssl_key_path     = $openvoxdb::params::postgresql_ssl_key_path,
@@ -97,7 +98,7 @@ class openvoxdb::database::postgresql (
 ) inherits openvoxdb::params {
   if $manage_server {
     class { 'postgresql::globals':
-      manage_dnf_module   => false, # disable DNF module on EL8, EL9 and EL10
+      manage_dnf_module   => $manage_dnf_module,
       manage_package_repo => $manage_package_repo,
       version             => $postgres_version,
     }

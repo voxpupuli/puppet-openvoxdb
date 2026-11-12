@@ -1160,7 +1160,7 @@ Default value: `fact('networking.fqdn')`
 
 ##### <a name="-openvoxdb--master--config--puppetdb_port"></a>`puppetdb_port`
 
-Data type: `Any`
+Data type: `Stdlib::Port`
 
 The port that the PuppetDB server is running on. Defaults to `8081`.
 
@@ -1177,7 +1177,7 @@ defined(Class['openvoxdb']) ? {
 
 ##### <a name="-openvoxdb--master--config--puppetdb_disable_ssl"></a>`puppetdb_disable_ssl`
 
-Data type: `Any`
+Data type: `Boolean`
 
 If true, use plain HTTP to talk to PuppetDB. Defaults to the value of
 `disable_ssl` if PuppetDB is on the same server as the Puppet Master, or else
@@ -1194,7 +1194,7 @@ defined(Class['openvoxdb']) ? {
 
 ##### <a name="-openvoxdb--master--config--puppetdb_soft_write_failure"></a>`puppetdb_soft_write_failure`
 
-Data type: `Any`
+Data type: `Boolean`
 
 Boolean to fail in a soft manner if PuppetDB is not accessible for command
 submission Defaults to `false`.
@@ -1203,7 +1203,7 @@ Default value: `false`
 
 ##### <a name="-openvoxdb--master--config--manage_routes"></a>`manage_routes`
 
-Data type: `Any`
+Data type: `Boolean`
 
 If `true`, the module will overwrite the Puppet master's routes file to
 configure it to use PuppetDB. Defaults to `true`.
@@ -1212,7 +1212,7 @@ Default value: `true`
 
 ##### <a name="-openvoxdb--master--config--manage_storeconfigs"></a>`manage_storeconfigs`
 
-Data type: `Any`
+Data type: `Boolean`
 
 If `true`, the module will manage the Puppet master's storeconfig settings.
 Defaults to `true`.
@@ -1221,7 +1221,7 @@ Default value: `true`
 
 ##### <a name="-openvoxdb--master--config--manage_report_processor"></a>`manage_report_processor`
 
-Data type: `Any`
+Data type: `Boolean`
 
 If `true`, the module will manage the 'reports' field in the puppet.conf file to
 enable or disable the PuppetDB report processor. Defaults to `false`.
@@ -1230,7 +1230,7 @@ Default value: `false`
 
 ##### <a name="-openvoxdb--master--config--manage_config"></a>`manage_config`
 
-Data type: `Any`
+Data type: `Boolean`
 
 If `true`, the module will store values from `puppetdb_server` and `puppetdb_port`
 parameters in the PuppetDB configuration file. If `false`, an existing PuppetDB
@@ -1240,7 +1240,7 @@ Default value: `true`
 
 ##### <a name="-openvoxdb--master--config--create_puppet_service_resource"></a>`create_puppet_service_resource`
 
-Data type: `Any`
+Data type: `Boolean`
 
 If `true`, AND if `restart_puppet` is true, then the module will create a service
 resource for `puppet_service_name` if it has not been defined. Defaults to `true`.
@@ -1252,7 +1252,7 @@ Default value: `true`
 
 ##### <a name="-openvoxdb--master--config--strict_validation"></a>`strict_validation`
 
-Data type: `Any`
+Data type: `Boolean`
 
 If `true`, the module will fail if PuppetDB is not reachable, otherwise it will
 preconfigure PuppetDB without checking.
@@ -1261,7 +1261,7 @@ Default value: `true`
 
 ##### <a name="-openvoxdb--master--config--enable_reports"></a>`enable_reports`
 
-Data type: `Any`
+Data type: `Boolean`
 
 Ignored unless `manage_report_processor` is `true`, in which case this setting
 will determine whether or not the PuppetDB report processor is enabled (`true`)
@@ -1271,7 +1271,7 @@ Default value: `false`
 
 ##### <a name="-openvoxdb--master--config--enable_storeconfigs"></a>`enable_storeconfigs`
 
-Data type: `Any`
+Data type: `Boolean`
 
 Ignored unless `manage_storeconfigs` is `true`, in which case this setting
 will determine whether or not client configuration storage is enabled (`true`)
@@ -1281,7 +1281,7 @@ Default value: `true`
 
 ##### <a name="-openvoxdb--master--config--puppet_confdir"></a>`puppet_confdir`
 
-Data type: `Any`
+Data type: `Stdlib::Absolutepath`
 
 Puppet's config directory. Defaults to `/etc/puppetlabs/puppet`.
 
@@ -1289,7 +1289,7 @@ Default value: `$openvoxdb::params::puppet_confdir`
 
 ##### <a name="-openvoxdb--master--config--puppet_conf"></a>`puppet_conf`
 
-Data type: `Any`
+Data type: `Stdlib::Absolutepath`
 
 Puppet's config file. Defaults to `${puppet_confdir}/puppet.conf`.
 
@@ -1297,7 +1297,7 @@ Default value: `$openvoxdb::params::puppet_conf`
 
 ##### <a name="-openvoxdb--master--config--masterless"></a>`masterless`
 
-Data type: `Any`
+Data type: `Boolean`
 
 A boolean switch to enable or disable the masterless setup of PuppetDB. Defaults
 to `false`.
@@ -1306,7 +1306,7 @@ Default value: `$openvoxdb::params::masterless`
 
 ##### <a name="-openvoxdb--master--config--terminus_package"></a>`terminus_package`
 
-Data type: `Any`
+Data type: `String[1]`
 
 Name of the package to use that represents the PuppetDB terminus code.
 
@@ -1314,7 +1314,7 @@ Default value: `$openvoxdb::params::terminus_package`
 
 ##### <a name="-openvoxdb--master--config--terminus_package_version"></a>`terminus_package_version`
 
-Data type: `Any`
+Data type: `String[1]`
 
 Version of the OpenVoxDB terminus package to install. Defaults to `present`
 
@@ -1322,7 +1322,7 @@ Default value: `$openvoxdb::params::terminus_package_version`
 
 ##### <a name="-openvoxdb--master--config--puppet_service_name"></a>`puppet_service_name`
 
-Data type: `Any`
+Data type: `Optional[String[1]]`
 
 Name of the service that represents Puppet. You can change this to `apache2` or
 `httpd` depending on your operating system, if you plan on having Puppet run
@@ -1332,7 +1332,7 @@ Default value: `$openvoxdb::params::puppet_service_name`
 
 ##### <a name="-openvoxdb--master--config--puppetdb_startup_timeout"></a>`puppetdb_startup_timeout`
 
-Data type: `Any`
+Data type: `Integer[0]`
 
 The maximum amount of time that the module should wait for PuppetDB to start up.
 This is most important during the initial install of PuppetDB (defaults to 15
@@ -1342,7 +1342,7 @@ Default value: `$openvoxdb::params::puppetdb_startup_timeout`
 
 ##### <a name="-openvoxdb--master--config--test_url"></a>`test_url`
 
-Data type: `Any`
+Data type: `String[1]`
 
 The URL to use for testing if the PuppetDB instance is running.
 
@@ -1350,7 +1350,7 @@ Default value: `$openvoxdb::params::test_url`
 
 ##### <a name="-openvoxdb--master--config--restart_puppet"></a>`restart_puppet`
 
-Data type: `Any`
+Data type: `Boolean`
 
 If `true`, the module will restart the Puppet master when PuppetDB configuration
 files are changed by the module. Defaults to `true`. If set to `false`, you

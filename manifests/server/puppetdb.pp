@@ -2,11 +2,11 @@
 #
 # @api private
 class openvoxdb::server::puppetdb (
-  $certificate_whitelist_file = $openvoxdb::params::certificate_whitelist_file,
-  $certificate_whitelist      = $openvoxdb::params::certificate_whitelist,
-  $disable_update_checking    = $openvoxdb::params::disable_update_checking,
-  $confdir                    = $openvoxdb::params::confdir,
-  $puppetdb_group             = $openvoxdb::params::puppetdb_group,
+  Stdlib::Unixpath $certificate_whitelist_file = $openvoxdb::params::certificate_whitelist_file,
+  Array $certificate_whitelist                 = $openvoxdb::params::certificate_whitelist,
+  Optional[Boolean] $disable_update_checking   = $openvoxdb::params::disable_update_checking,
+  Stdlib::Unixpath $confdir                    = $openvoxdb::params::confdir,
+  String[1] $puppetdb_group                    = $openvoxdb::params::puppetdb_group,
 ) inherits openvoxdb::params {
   $puppetdb_ini = "${confdir}/puppetdb.ini"
 

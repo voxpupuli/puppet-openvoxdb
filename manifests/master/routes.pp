@@ -2,9 +2,9 @@
 #
 # @api private
 class openvoxdb::master::routes (
-  $puppet_confdir = $openvoxdb::params::puppet_confdir,
-  $masterless     = $openvoxdb::params::masterless,
-  $routes         = undef,
+  Stdlib::Absolutepath $puppet_confdir = $openvoxdb::params::puppet_confdir,
+  Boolean $masterless                  = $openvoxdb::params::masterless,
+  Optional[Hash] $routes               = undef,
 ) inherits openvoxdb::params {
   if $masterless {
     $routes_real = {

@@ -2,9 +2,9 @@
 #
 # @api private
 class openvoxdb::master::report_processor (
-  $puppet_conf = $openvoxdb::params::puppet_conf,
-  $masterless  = $openvoxdb::params::masterless,
-  $enable      = false
+  Stdlib::Absolutepath $puppet_conf = $openvoxdb::params::puppet_conf,
+  Boolean $masterless               = $openvoxdb::params::masterless,
+  Boolean $enable                   = false,
 ) inherits openvoxdb::params {
   $puppet_conf_section = if $masterless {
     'main'

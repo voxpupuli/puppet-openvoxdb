@@ -2,11 +2,11 @@
 #
 # @api private
 class openvoxdb::server::command_processing (
-  $command_threads   = $openvoxdb::params::command_threads,
-  $concurrent_writes = $openvoxdb::params::concurrent_writes,
-  $store_usage       = $openvoxdb::params::store_usage,
-  $temp_usage        = $openvoxdb::params::temp_usage,
-  $confdir           = $openvoxdb::params::confdir,
+  Optional[Integer] $command_threads   = $openvoxdb::params::command_threads,
+  Optional[Integer] $concurrent_writes = $openvoxdb::params::concurrent_writes,
+  Optional[Integer] $store_usage       = $openvoxdb::params::store_usage,
+  Optional[Integer] $temp_usage        = $openvoxdb::params::temp_usage,
+  Stdlib::Unixpath $confdir            = $openvoxdb::params::confdir,
 ) inherits openvoxdb::params {
   $config_ini = "${confdir}/config.ini"
 

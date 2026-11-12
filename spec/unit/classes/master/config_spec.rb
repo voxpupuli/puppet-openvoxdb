@@ -48,7 +48,7 @@ describe 'openvoxdb::master::config', type: :class do
 
         context 'when puppetdb_port => 1234' do
           let(:pre_condition) { 'class { "openvoxdb": }' }
-          let(:params) { { puppetdb_port: '1234' } }
+          let(:params) { { puppetdb_port: 1234 } }
 
           it {
             is_expected.to contain_puppetdb_conn_validator('puppetdb_conn').with(
@@ -60,7 +60,7 @@ describe 'openvoxdb::master::config', type: :class do
 
         context 'when puppetdb_port => 1234 AND the puppetdb class is declared with disable_ssl => true' do
           let(:pre_condition) { 'class { "openvoxdb": disable_ssl => true }' }
-          let(:params) { { puppetdb_port: '1234' } }
+          let(:params) { { puppetdb_port: 1234 } }
 
           it {
             is_expected.to contain_puppetdb_conn_validator('puppetdb_conn').with(

@@ -30,6 +30,12 @@ describe 'openvoxdb::master::config', type: :class do
         it { is_expected.to contain_class('openvoxdb::master::puppetdb_conf').with_server(['puppetdb1.example.com', 'puppetdb2.example.com']) }
       end
 
+      context 'when using an empty list of PuppetDB servers' do
+        let(:params) { { puppetdb_server: [] } }
+
+        it { is_expected.to compile.and_raise_error(%r{puppetdb_server}) }
+      end
+
       context 'when PuppetDB and Puppet Master are on the same server' do
         context 'when using default values' do
           let(:pre_condition) { 'class { "openvoxdb": }' }

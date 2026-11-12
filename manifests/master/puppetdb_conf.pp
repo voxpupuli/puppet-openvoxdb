@@ -6,14 +6,14 @@
 #
 # @api private
 class openvoxdb::master::puppetdb_conf (
-  $server             = 'localhost',
-  $port               = '8081',
-  $soft_write_failure = $openvoxdb::disable_ssl ? {
+  Variant[Stdlib::Host, Array[Stdlib::Host, 1]] $server = 'localhost',
+  $port                                                 = '8081',
+  $soft_write_failure                                   = $openvoxdb::disable_ssl ? {
     true => true,
     default => false,
   },
-  $puppet_confdir     = $openvoxdb::params::puppet_confdir,
-  $legacy_terminus    = $openvoxdb::params::terminus_package ? {
+  $puppet_confdir                                       = $openvoxdb::params::puppet_confdir,
+  $legacy_terminus                                      = $openvoxdb::params::terminus_package ? {
     /(puppetdb-terminus)/ => true,
     default               => false,
   },

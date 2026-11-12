@@ -31,6 +31,12 @@ describe 'openvoxdb::master::puppetdb_conf', type: :class do
         it { is_expected.to contain_ini_setting('puppetdbserver_urls').with(value: 'https://puppetdb1.example.com:8081/,https://puppetdb2.example.com:8081/') }
       end
 
+      context 'when using an empty list of servers' do
+        let(:params) { { server: [] } }
+
+        it { is_expected.to compile.and_raise_error(%r{server}) }
+      end
+
       context 'when using legacy_terminus' do
         let(:params) { { legacy_terminus: true } }
 

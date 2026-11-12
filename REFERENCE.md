@@ -1151,7 +1151,7 @@ The following parameters are available in the `openvoxdb::master::config` class:
 
 ##### <a name="-openvoxdb--master--config--puppetdb_server"></a>`puppetdb_server`
 
-Data type: `Any`
+Data type: `Variant[Stdlib::Host, Array[Stdlib::Host, 1]]`
 
 The dns name or ip of the PuppetDB server, or an array of them. Defaults to
 the hostname of the current node, i.e. `$::fqdn`. With several servers, the

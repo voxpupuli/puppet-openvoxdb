@@ -2,16 +2,16 @@
 #
 # @api private
 class openvoxdb::database::ssl_configuration (
-  $database_name               = $openvoxdb::params::database_name,
-  $database_username           = $openvoxdb::params::database_username,
-  $read_database_username      = $openvoxdb::params::read_database_username,
-  $read_database_host          = $openvoxdb::params::read_database_host,
-  $puppetdb_server             = $openvoxdb::params::puppetdb_server,
-  $postgresql_ssl_key_path     = $openvoxdb::params::postgresql_ssl_key_path,
-  $postgresql_ssl_cert_path    = $openvoxdb::params::postgresql_ssl_cert_path,
-  $postgresql_ssl_ca_cert_path = $openvoxdb::params::postgresql_ssl_ca_cert_path,
-  $postgres_version            = $openvoxdb::params::postgres_version,
-  $create_read_user_rule       = false,
+  String[1] $database_name                      = $openvoxdb::params::database_name,
+  String[1] $database_username                  = $openvoxdb::params::database_username,
+  Optional[String] $read_database_username      = $openvoxdb::params::read_database_username,
+  Optional[Stdlib::Host] $read_database_host    = $openvoxdb::params::read_database_host,
+  String[1] $puppetdb_server                    = $openvoxdb::params::puppetdb_server,
+  Stdlib::Unixpath $postgresql_ssl_key_path     = $openvoxdb::params::postgresql_ssl_key_path,
+  Stdlib::Unixpath $postgresql_ssl_cert_path    = $openvoxdb::params::postgresql_ssl_cert_path,
+  Stdlib::Unixpath $postgresql_ssl_ca_cert_path = $openvoxdb::params::postgresql_ssl_ca_cert_path,
+  String[1] $postgres_version                   = $openvoxdb::params::postgres_version,
+  Boolean $create_read_user_rule                = false,
 ) inherits openvoxdb::params {
   File {
     ensure  => present,

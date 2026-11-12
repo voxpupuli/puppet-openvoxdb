@@ -10,9 +10,9 @@ describe 'openvoxdb::server::firewall', type: :class do
   context 'custom ports and open firewall' do
     let(:params) do
       {
-        http_port: '9000',
+        http_port: 9000,
         open_http_port: true,
-        ssl_port: '9001',
+        ssl_port: 9001,
         open_ssl_port: true,
       }
     end

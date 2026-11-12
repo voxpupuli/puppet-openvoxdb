@@ -2,10 +2,10 @@
 #
 # @api private
 class openvoxdb::server::firewall (
-  $http_port      = $openvoxdb::params::listen_port,
-  $open_http_port = $openvoxdb::params::open_listen_port,
-  $ssl_port       = $openvoxdb::params::ssl_listen_port,
-  $open_ssl_port  = $openvoxdb::params::open_ssl_listen_port,
+  Stdlib::Port::Unprivileged $http_port = $openvoxdb::params::listen_port,
+  Boolean $open_http_port               = $openvoxdb::params::open_listen_port,
+  Stdlib::Port::Unprivileged $ssl_port  = $openvoxdb::params::ssl_listen_port,
+  Boolean $open_ssl_port                = $openvoxdb::params::open_ssl_listen_port,
 ) inherits openvoxdb::params {
   include firewall
 

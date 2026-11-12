@@ -2,9 +2,9 @@
 #
 # @api private
 class openvoxdb::server::global (
-  $vardir         = $openvoxdb::params::vardir,
-  $confdir        = $openvoxdb::params::confdir,
-  $puppetdb_group = $openvoxdb::params::puppetdb_group,
+  Stdlib::Unixpath $vardir  = $openvoxdb::params::vardir,
+  Stdlib::Unixpath $confdir = $openvoxdb::params::confdir,
+  String[1] $puppetdb_group = $openvoxdb::params::puppetdb_group,
 ) inherits openvoxdb::params {
   $config_ini = "${confdir}/config.ini"
 

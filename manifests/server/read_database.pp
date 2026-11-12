@@ -2,23 +2,23 @@
 #
 # @api private
 class openvoxdb::server::read_database (
-  $read_database_host     = $openvoxdb::params::read_database_host,
-  $read_database_port     = $openvoxdb::params::read_database_port,
-  $read_database_username = $openvoxdb::params::read_database_username,
+  Optional[Stdlib::Host] $read_database_host                       = $openvoxdb::params::read_database_host,
+  Optional[Stdlib::Port::Unprivileged] $read_database_port         = $openvoxdb::params::read_database_port,
+  Optional[String] $read_database_username                         = $openvoxdb::params::read_database_username,
   Variant[String[1], Sensitive[String[1]]] $read_database_password = $openvoxdb::params::read_database_password,
-  $read_database_name     = $openvoxdb::params::read_database_name,
-  $manage_db_password     = $openvoxdb::params::manage_read_db_password,
-  $jdbc_ssl_properties    = $openvoxdb::params::read_database_jdbc_ssl_properties,
-  $database_validate      = $openvoxdb::params::read_database_validate,
-  $conn_max_age           = $openvoxdb::params::read_conn_max_age,
-  $conn_lifetime          = $openvoxdb::params::read_conn_lifetime,
-  $confdir                = $openvoxdb::params::confdir,
-  $puppetdb_group         = $openvoxdb::params::puppetdb_group,
-  $database_max_pool_size = $openvoxdb::params::read_database_max_pool_size,
-  $postgresql_ssl_on      = $openvoxdb::params::postgresql_ssl_on,
-  $ssl_cert_path          = $openvoxdb::params::ssl_cert_path,
-  $ssl_key_pk8_path       = $openvoxdb::params::ssl_key_pk8_path,
-  $ssl_ca_cert_path       = $openvoxdb::params::ssl_ca_cert_path
+  String $read_database_name                                       = $openvoxdb::params::read_database_name,
+  Boolean $manage_db_password                                      = $openvoxdb::params::manage_read_db_password,
+  Optional[String] $jdbc_ssl_properties                            = $openvoxdb::params::read_database_jdbc_ssl_properties,
+  Boolean $database_validate                                       = $openvoxdb::params::read_database_validate,
+  Integer $conn_max_age                                            = $openvoxdb::params::read_conn_max_age,
+  Integer $conn_lifetime                                           = $openvoxdb::params::read_conn_lifetime,
+  Stdlib::Unixpath $confdir                                        = $openvoxdb::params::confdir,
+  String[1] $puppetdb_group                                        = $openvoxdb::params::puppetdb_group,
+  Optional[Variant[String[1], Integer[1]]] $database_max_pool_size = $openvoxdb::params::read_database_max_pool_size,
+  Boolean $postgresql_ssl_on                                       = $openvoxdb::params::postgresql_ssl_on,
+  Stdlib::Unixpath $ssl_cert_path                                  = $openvoxdb::params::ssl_cert_path,
+  Stdlib::Unixpath $ssl_key_pk8_path                               = $openvoxdb::params::ssl_key_pk8_path,
+  Stdlib::Unixpath $ssl_ca_cert_path                               = $openvoxdb::params::ssl_ca_cert_path
 ) inherits openvoxdb::params {
   if $read_database_host != undef {
     if str2bool($database_validate) {

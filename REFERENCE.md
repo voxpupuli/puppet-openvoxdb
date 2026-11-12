@@ -849,7 +849,7 @@ Default value: `$openvoxdb::params::certificate_whitelist`
 
 ##### <a name="-openvoxdb--database_max_pool_size"></a>`database_max_pool_size`
 
-Data type: `Optional[String[1]]`
+Data type: `Optional[Variant[String[1], Integer[1]]]`
 
 When the pool reaches this size, and no idle connections are available, attempts to get a connection will wait for connection-timeout milliseconds before timing out.
 Note that PuppetDB will use one pool for writes and another for reads, so the total number of connections used will be twice this setting.
@@ -858,7 +858,7 @@ Default value: `$openvoxdb::params::database_max_pool_size`
 
 ##### <a name="-openvoxdb--read_database_max_pool_size"></a>`read_database_max_pool_size`
 
-Data type: `Optional[String[1]]`
+Data type: `Optional[Variant[String[1], Integer[1]]]`
 
 When the pool reaches this size, and no idle connections are available, attempts to get a connection will wait for connection-timeout milliseconds before timing out.
 Note that PuppetDB will use one pool for writes and another for reads, so the total number of connections used will be twice this setting.
@@ -947,7 +947,7 @@ The following parameters are available in the `openvoxdb::database::postgresql` 
 
 ##### <a name="-openvoxdb--database--postgresql--listen_addresses"></a>`listen_addresses`
 
-Data type: `Any`
+Data type: `Optional[Variant[String[1], Array[String[1]]]]`
 
 The `listen_address` is a comma-separated list of hostnames or IP addresses on
 which the postgres server should listen for incoming connections. This defaults
@@ -958,7 +958,7 @@ Default value: `$openvoxdb::params::database_host`
 
 ##### <a name="-openvoxdb--database--postgresql--puppetdb_server"></a>`puppetdb_server`
 
-Data type: `Any`
+Data type: `String[1]`
 
 Hostname or IP address to configure for SSL rules.
 
@@ -966,7 +966,7 @@ Default value: `$openvoxdb::params::puppetdb_server`
 
 ##### <a name="-openvoxdb--database--postgresql--database_name"></a>`database_name`
 
-Data type: `Any`
+Data type: `String[1]`
 
 Sets the name of the database. Defaults to `puppetdb`.
 
@@ -974,7 +974,7 @@ Default value: `$openvoxdb::params::database_name`
 
 ##### <a name="-openvoxdb--database--postgresql--database_locale"></a>`database_locale`
 
-Data type: `Any`
+Data type: `Optional[String[1]]`
 
 Sets the locale of the database. Defaults to `C.UTF-8`.
 
@@ -982,7 +982,7 @@ Default value: `$openvoxdb::params::database_locale`
 
 ##### <a name="-openvoxdb--database--postgresql--database_username"></a>`database_username`
 
-Data type: `Any`
+Data type: `String[1]`
 
 Creates a user for access the database. Defaults to `puppetdb`.
 
@@ -998,7 +998,7 @@ Default value: `$openvoxdb::params::database_password`
 
 ##### <a name="-openvoxdb--database--postgresql--database_port"></a>`database_port`
 
-Data type: `Any`
+Data type: `Stdlib::Port::Unprivileged`
 
 The port that the database server listens on. Defaults to `5432`.
 
@@ -1006,7 +1006,7 @@ Default value: `$openvoxdb::params::database_port`
 
 ##### <a name="-openvoxdb--database--postgresql--manage_database"></a>`manage_database`
 
-Data type: `Any`
+Data type: `Boolean`
 
 If true, the PostgreSQL database will be managed by this module. Defaults to `true`.
 
@@ -1014,7 +1014,7 @@ Default value: `$openvoxdb::params::manage_database`
 
 ##### <a name="-openvoxdb--database--postgresql--manage_server"></a>`manage_server`
 
-Data type: `Any`
+Data type: `Boolean`
 
 Conditionally manages the PostgreSQL server via `postgresql::server`. Defaults
 to `true`. If set to `false`, this class will create the database and user via
@@ -1024,7 +1024,7 @@ Default value: `$openvoxdb::params::manage_dbserver`
 
 ##### <a name="-openvoxdb--database--postgresql--manage_package_repo"></a>`manage_package_repo`
 
-Data type: `Any`
+Data type: `Boolean`
 
 If `true`, the official postgresql.org repo will be added and postgres won't
 be installed from the regular repository. Defaults to `true`.
@@ -1033,7 +1033,7 @@ Default value: `$openvoxdb::params::manage_pg_repo`
 
 ##### <a name="-openvoxdb--database--postgresql--postgres_version"></a>`postgres_version`
 
-Data type: `Any`
+Data type: `String[1]`
 
 If the postgresql.org repo is installed, you can install several versions of
 postgres. Defaults to `11` with PuppetDB version 7.0.0 or newer, and `9.6` in older versions.
@@ -1042,7 +1042,7 @@ Default value: `$openvoxdb::params::postgres_version`
 
 ##### <a name="-openvoxdb--database--postgresql--postgresql_ssl_on"></a>`postgresql_ssl_on`
 
-Data type: `Any`
+Data type: `Boolean`
 
 If `true`, it configures SSL connections between PuppetDB and the PostgreSQL database.
 Defaults to `false`.
@@ -1051,7 +1051,7 @@ Default value: `$openvoxdb::params::postgresql_ssl_on`
 
 ##### <a name="-openvoxdb--database--postgresql--postgresql_ssl_cert_path"></a>`postgresql_ssl_cert_path`
 
-Data type: `Any`
+Data type: `Stdlib::Unixpath`
 
 Path to the Postgresql SSL certificate.
 
@@ -1059,7 +1059,7 @@ Default value: `$openvoxdb::params::postgresql_ssl_cert_path`
 
 ##### <a name="-openvoxdb--database--postgresql--postgresql_ssl_key_path"></a>`postgresql_ssl_key_path`
 
-Data type: `Any`
+Data type: `Stdlib::Unixpath`
 
 Path to the Postgresql SSL key.
 
@@ -1067,7 +1067,7 @@ Default value: `$openvoxdb::params::postgresql_ssl_key_path`
 
 ##### <a name="-openvoxdb--database--postgresql--postgresql_ssl_ca_cert_path"></a>`postgresql_ssl_ca_cert_path`
 
-Data type: `Any`
+Data type: `Stdlib::Unixpath`
 
 Path to the Postgresql SSL CA.
 
@@ -1075,7 +1075,7 @@ Default value: `$openvoxdb::params::postgresql_ssl_ca_cert_path`
 
 ##### <a name="-openvoxdb--database--postgresql--read_database_username"></a>`read_database_username`
 
-Data type: `Any`
+Data type: `Optional[String]`
 
 The name of the read database user to connect as. Defaults to `puppetdb-read`. This
 option is supported in PuppetDB >= 1.6.
@@ -1093,7 +1093,7 @@ Default value: `$openvoxdb::params::read_database_password`
 
 ##### <a name="-openvoxdb--database--postgresql--read_database_host"></a>`read_database_host`
 
-Data type: `Any`
+Data type: `Optional[Stdlib::Host]`
 
 *This parameter must be set to use another PuppetDB instance for queries.*
 
@@ -1151,7 +1151,7 @@ The following parameters are available in the `openvoxdb::master::config` class:
 
 ##### <a name="-openvoxdb--master--config--puppetdb_server"></a>`puppetdb_server`
 
-Data type: `Any`
+Data type: `Stdlib::Host`
 
 The dns name or ip of the PuppetDB server. Defaults to the hostname of the
 current node, i.e. `$::fqdn`.
@@ -1444,7 +1444,7 @@ The following parameters are available in the `openvoxdb::server` class:
 
 ##### <a name="-openvoxdb--server--listen_address"></a>`listen_address`
 
-Data type: `Any`
+Data type: `Stdlib::Host`
 
 The address that the web server should bind to for HTTP requests. Defaults to
 `localhost`. Set to `0.0.0.0` to listen on all addresses.
@@ -1453,7 +1453,7 @@ Default value: `$openvoxdb::params::listen_address`
 
 ##### <a name="-openvoxdb--server--listen_port"></a>`listen_port`
 
-Data type: `Any`
+Data type: `Stdlib::Port::Unprivileged`
 
 The port on which the puppetdb web server should accept HTTP requests. Defaults
 to `8080`.
@@ -1462,7 +1462,7 @@ Default value: `$openvoxdb::params::listen_port`
 
 ##### <a name="-openvoxdb--server--disable_cleartext"></a>`disable_cleartext`
 
-Data type: `Any`
+Data type: `Boolean`
 
 If `true`, the puppetdb web server will only serve HTTPS and not HTTP requests (defaults to false).
 
@@ -1470,7 +1470,7 @@ Default value: `$openvoxdb::params::disable_cleartext`
 
 ##### <a name="-openvoxdb--server--open_listen_port"></a>`open_listen_port`
 
-Data type: `Any`
+Data type: `Boolean`
 
 If `true`, open the `http_listen_port` on the firewall. Defaults to `false`.
 
@@ -1478,7 +1478,7 @@ Default value: `$openvoxdb::params::open_listen_port`
 
 ##### <a name="-openvoxdb--server--ssl_listen_address"></a>`ssl_listen_address`
 
-Data type: `Any`
+Data type: `Stdlib::Host`
 
 The address that the web server should bind to for HTTPS requests. Defaults to
 `0.0.0.0` to listen on all addresses.
@@ -1487,7 +1487,7 @@ Default value: `$openvoxdb::params::ssl_listen_address`
 
 ##### <a name="-openvoxdb--server--ssl_listen_port"></a>`ssl_listen_port`
 
-Data type: `Any`
+Data type: `Stdlib::Port::Unprivileged`
 
 The port on which the puppetdb web server should accept HTTPS requests. Defaults
 to `8081`.
@@ -1496,7 +1496,7 @@ Default value: `$openvoxdb::params::ssl_listen_port`
 
 ##### <a name="-openvoxdb--server--disable_ssl"></a>`disable_ssl`
 
-Data type: `Any`
+Data type: `Boolean`
 
 If `true`, the puppetdb web server will only serve HTTP and not HTTPS requests.
 Defaults to `false`.
@@ -1505,7 +1505,7 @@ Default value: `$openvoxdb::params::disable_ssl`
 
 ##### <a name="-openvoxdb--server--open_ssl_listen_port"></a>`open_ssl_listen_port`
 
-Data type: `Any`
+Data type: `Boolean`
 
 If true, open the `ssl_listen_port` on the firewall. Defaults to `undef`.
 
@@ -1513,7 +1513,7 @@ Default value: `$openvoxdb::params::open_ssl_listen_port`
 
 ##### <a name="-openvoxdb--server--ssl_protocols"></a>`ssl_protocols`
 
-Data type: `Any`
+Data type: `Optional[String[1]]`
 
 Specify the supported SSL protocols for PuppetDB (e.g. TLSv1, TLSv1.1, TLSv1.2.)
 
@@ -1521,7 +1521,7 @@ Default value: `$openvoxdb::params::ssl_protocols`
 
 ##### <a name="-openvoxdb--server--postgresql_ssl_on"></a>`postgresql_ssl_on`
 
-Data type: `Any`
+Data type: `Boolean`
 
 If `true`, it configures SSL connections between PuppetDB and the PostgreSQL database.
 Defaults to `false`.
@@ -1530,7 +1530,7 @@ Default value: `$openvoxdb::params::postgresql_ssl_on`
 
 ##### <a name="-openvoxdb--server--cipher_suites"></a>`cipher_suites`
 
-Data type: `Any`
+Data type: `Optional[String[1]]`
 
 Configure jetty's supported `cipher-suites` (e.g. `SSL_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384`).
 Defaults to `undef`.
@@ -1539,7 +1539,7 @@ Default value: `$openvoxdb::params::cipher_suites`
 
 ##### <a name="-openvoxdb--server--migrate"></a>`migrate`
 
-Data type: `Any`
+Data type: `Boolean`
 
 If `true`, puppetdb will automatically migrate to the latest database format at startup. If `false`, if the database format supplied by this version of PuppetDB doesn't match the version expected (whether newer or older), PuppetDB will exit with an error status. Defaults to `true`.
 
@@ -1547,7 +1547,7 @@ Default value: `$openvoxdb::params::migrate`
 
 ##### <a name="-openvoxdb--server--manage_database"></a>`manage_database`
 
-Data type: `Any`
+Data type: `Boolean`
 
 If true, the PostgreSQL database will be managed by this module. Defaults to `true`.
 
@@ -1555,7 +1555,7 @@ Default value: `$openvoxdb::params::manage_database`
 
 ##### <a name="-openvoxdb--server--database_host"></a>`database_host`
 
-Data type: `Any`
+Data type: `Stdlib::Host`
 
 Hostname to use for the database connection. For single case installations this
 should be left as the default. Defaults to `localhost`.
@@ -1564,7 +1564,7 @@ Default value: `$openvoxdb::params::database_host`
 
 ##### <a name="-openvoxdb--server--database_port"></a>`database_port`
 
-Data type: `Any`
+Data type: `Stdlib::Port::Unprivileged`
 
 The port that the database server listens on. Defaults to `5432`.
 
@@ -1572,7 +1572,7 @@ Default value: `$openvoxdb::params::database_port`
 
 ##### <a name="-openvoxdb--server--database_username"></a>`database_username`
 
-Data type: `Any`
+Data type: `String[1]`
 
 The name of the database user to connect as. Defaults to `puppetdb`.
 
@@ -1588,7 +1588,7 @@ Default value: `$openvoxdb::params::database_password`
 
 ##### <a name="-openvoxdb--server--manage_db_password"></a>`manage_db_password`
 
-Data type: `Any`
+Data type: `Boolean`
 
 Whether or not the database password in database.ini will be managed by this module.
 Set this to `false` if you want to set the password some other way.
@@ -1598,7 +1598,7 @@ Default value: `$openvoxdb::params::manage_db_password`
 
 ##### <a name="-openvoxdb--server--database_name"></a>`database_name`
 
-Data type: `Any`
+Data type: `String[1]`
 
 The name of the database instance to connect to. Defaults to `puppetdb`.
 
@@ -1606,7 +1606,7 @@ Default value: `$openvoxdb::params::database_name`
 
 ##### <a name="-openvoxdb--server--jdbc_ssl_properties"></a>`jdbc_ssl_properties`
 
-Data type: `Any`
+Data type: `Optional[String]`
 
 The text to append to the JDBC connection URI. This should begin with a '?'
 character. For example, to use SSL for the PostgreSQL connection, set this
@@ -1616,7 +1616,7 @@ Default value: `$openvoxdb::params::jdbc_ssl_properties`
 
 ##### <a name="-openvoxdb--server--database_validate"></a>`database_validate`
 
-Data type: `Any`
+Data type: `Boolean`
 
 If true, the module will attempt to connect to the database using the specified
 settings and fail if it is not able to do so. Defaults to `true`.
@@ -1625,7 +1625,7 @@ Default value: `$openvoxdb::params::database_validate`
 
 ##### <a name="-openvoxdb--server--node_ttl"></a>`node_ttl`
 
-Data type: `Any`
+Data type: `String[1]`
 
 The length of time a node can go without receiving any new data before it's
 automatically deactivated. (defaults to '7d', which is a 7-day period. Set to
@@ -1636,7 +1636,7 @@ Default value: `$openvoxdb::params::node_ttl`
 
 ##### <a name="-openvoxdb--server--node_purge_ttl"></a>`node_purge_ttl`
 
-Data type: `Any`
+Data type: `String[1]`
 
 The length of time a node can be deactivated before it's deleted from the
 database. (defaults to '14d', which is a 14-day period. Set to '0d' to disable
@@ -1646,7 +1646,7 @@ Default value: `$openvoxdb::params::node_purge_ttl`
 
 ##### <a name="-openvoxdb--server--report_ttl"></a>`report_ttl`
 
-Data type: `Any`
+Data type: `String[1]`
 
 The length of time reports should be stored before being deleted. (defaults to
 `14d`, which is a 14-day period). This option is supported in PuppetDB >= 1.1.0.
@@ -1663,7 +1663,7 @@ Default value: `$openvoxdb::params::facts_blacklist`
 
 ##### <a name="-openvoxdb--server--gc_interval"></a>`gc_interval`
 
-Data type: `Any`
+Data type: `Integer`
 
 This controls how often (in minutes) to compact the database. The compaction
 process reclaims space and deletes unnecessary rows. If not supplied, the
@@ -1673,7 +1673,7 @@ Default value: `$openvoxdb::params::gc_interval`
 
 ##### <a name="-openvoxdb--server--node_purge_gc_batch_limit"></a>`node_purge_gc_batch_limit`
 
-Data type: `Any`
+Data type: `Integer`
 
 Nodes will be purged in batches of this size, one batch per gc-interval.
 
@@ -1681,7 +1681,7 @@ Default value: `$openvoxdb::params::node_purge_gc_batch_limit`
 
 ##### <a name="-openvoxdb--server--conn_max_age"></a>`conn_max_age`
 
-Data type: `Any`
+Data type: `Integer`
 
 The maximum time (in minutes) for a pooled connection to remain unused before
 it is closed off.
@@ -1692,7 +1692,7 @@ Default value: `$openvoxdb::params::conn_max_age`
 
 ##### <a name="-openvoxdb--server--conn_lifetime"></a>`conn_lifetime`
 
-Data type: `Any`
+Data type: `Integer`
 
 The maximum time (in minutes) a pooled connection should remain open. Any
 connections older than this setting will be closed off. Connections currently in
@@ -1705,7 +1705,7 @@ Default value: `$openvoxdb::params::conn_lifetime`
 
 ##### <a name="-openvoxdb--server--puppetdb_package"></a>`puppetdb_package`
 
-Data type: `Any`
+Data type: `String[1]`
 
 The PuppetDB package name in the package manager. Defaults to `present`.
 
@@ -1721,7 +1721,7 @@ Default value: `$openvoxdb::params::puppetdb_version`
 
 ##### <a name="-openvoxdb--server--puppetdb_service"></a>`puppetdb_service`
 
-Data type: `Any`
+Data type: `String[1]`
 
 The name of the PuppetDB service. Defaults to `puppetdb`.
 
@@ -1729,7 +1729,7 @@ Default value: `$openvoxdb::params::puppetdb_service`
 
 ##### <a name="-openvoxdb--server--puppetdb_service_status"></a>`puppetdb_service_status`
 
-Data type: `Any`
+Data type: `Stdlib::Ensure::Service`
 
 Sets whether the service should be `running ` or `stopped`. When set to `stopped` the
 service doesn't start on boot either. Valid values are `true`, `running`,
@@ -1739,7 +1739,7 @@ Default value: `$openvoxdb::params::puppetdb_service_status`
 
 ##### <a name="-openvoxdb--server--puppetdb_user"></a>`puppetdb_user`
 
-Data type: `Any`
+Data type: `String[1]`
 
 Puppetdb service user
 
@@ -1747,7 +1747,7 @@ Default value: `$openvoxdb::params::puppetdb_user`
 
 ##### <a name="-openvoxdb--server--puppetdb_group"></a>`puppetdb_group`
 
-Data type: `Any`
+Data type: `String[1]`
 
 Puppetdb service group
 
@@ -1755,7 +1755,7 @@ Default value: `$openvoxdb::params::puppetdb_group`
 
 ##### <a name="-openvoxdb--server--confdir"></a>`confdir`
 
-Data type: `Any`
+Data type: `Stdlib::Unixpath`
 
 The PuppetDB configuration directory. Defaults to `/etc/puppetdb/conf.d`.
 
@@ -1763,7 +1763,7 @@ Default value: `$openvoxdb::params::confdir`
 
 ##### <a name="-openvoxdb--server--vardir"></a>`vardir`
 
-Data type: `Any`
+Data type: `Stdlib::Unixpath`
 
 The parent directory for the MQ's data directory.
 
@@ -1771,7 +1771,7 @@ Default value: `$openvoxdb::params::vardir`
 
 ##### <a name="-openvoxdb--server--java_args"></a>`java_args`
 
-Data type: `Any`
+Data type: `Hash`
 
 Java VM options used for overriding default Java VM options specified in
 PuppetDB package. Defaults to `{}`. See
@@ -1789,7 +1789,7 @@ Default value: `$openvoxdb::params::java_args`
 
 ##### <a name="-openvoxdb--server--merge_default_java_args"></a>`merge_default_java_args`
 
-Data type: `Any`
+Data type: `Boolean`
 
 Sets whether the provided java args should be merged with the defaults, or
 should override the defaults. This setting is necessary if any of the defaults
@@ -1800,7 +1800,7 @@ Default value: `$openvoxdb::params::merge_default_java_args`
 
 ##### <a name="-openvoxdb--server--max_threads"></a>`max_threads`
 
-Data type: `Any`
+Data type: `Optional[Integer]`
 
 Jetty option to explicitly set `max-threads`. Defaults to `undef`, so the
 PuppetDB-Jetty default is used.
@@ -1809,7 +1809,7 @@ Default value: `$openvoxdb::params::max_threads`
 
 ##### <a name="-openvoxdb--server--read_database_host"></a>`read_database_host`
 
-Data type: `Any`
+Data type: `Optional[Stdlib::Host]`
 
 *This parameter must be set to use another PuppetDB instance for queries.*
 
@@ -1821,7 +1821,7 @@ Default value: `$openvoxdb::params::read_database_host`
 
 ##### <a name="-openvoxdb--server--read_database_port"></a>`read_database_port`
 
-Data type: `Any`
+Data type: `Optional[Stdlib::Port::Unprivileged]`
 
 The port that the read database server listens on. If `read_database_host`
 is set to `undef`, and `manage_database` is set to `true`, it will use the value of
@@ -1831,7 +1831,7 @@ Default value: `$openvoxdb::params::read_database_port`
 
 ##### <a name="-openvoxdb--server--read_database_username"></a>`read_database_username`
 
-Data type: `Any`
+Data type: `Optional[String]`
 
 The name of the read database user to connect as. Defaults to `puppetdb-read`. This
 option is supported in PuppetDB >= 1.6.
@@ -1849,7 +1849,7 @@ Default value: `$openvoxdb::params::read_database_password`
 
 ##### <a name="-openvoxdb--server--manage_read_db_password"></a>`manage_read_db_password`
 
-Data type: `Any`
+Data type: `Boolean`
 
 Whether or not the database password in read-database.ini will be managed by this module.
 Set this to `false` if you want to set the password some other way.
@@ -1859,7 +1859,7 @@ Default value: `$openvoxdb::params::manage_read_db_password`
 
 ##### <a name="-openvoxdb--server--read_database_jdbc_ssl_properties"></a>`read_database_jdbc_ssl_properties`
 
-Data type: `Any`
+Data type: `String`
 
 The text to append to the JDBC connection URI. This should begin with a '?'
 character. For example, to use SSL for the PostgreSQL connection, set this
@@ -1869,7 +1869,7 @@ Default value: `$openvoxdb::params::read_database_jdbc_ssl_properties`
 
 ##### <a name="-openvoxdb--server--read_database_validate"></a>`read_database_validate`
 
-Data type: `Any`
+Data type: `Boolean`
 
 If true, the module will attempt to connect to the database using the specified
 settings and fail if it is not able to do so. Defaults to `true`.
@@ -1878,7 +1878,7 @@ Default value: `$openvoxdb::params::read_database_validate`
 
 ##### <a name="-openvoxdb--server--read_database_name"></a>`read_database_name`
 
-Data type: `Any`
+Data type: `String`
 
 The name of the read database instance to connect to. If `read_database_host`
 is set to `undef`, and `manage_database` is set to `true`, it will use the value of
@@ -1888,7 +1888,7 @@ Default value: `$openvoxdb::params::read_database_name`
 
 ##### <a name="-openvoxdb--server--read_conn_max_age"></a>`read_conn_max_age`
 
-Data type: `Any`
+Data type: `Integer`
 
 The maximum time (in minutes) for a pooled read database connection to remain
 unused before it is closed off.
@@ -1899,7 +1899,7 @@ Default value: `$openvoxdb::params::read_conn_max_age`
 
 ##### <a name="-openvoxdb--server--read_conn_lifetime"></a>`read_conn_lifetime`
 
-Data type: `Any`
+Data type: `Integer`
 
 The maximum time (in minutes) a pooled read database connection should remain
 open. Any connections older than this setting will be closed off. Connections
@@ -1972,7 +1972,7 @@ Default value: `$openvoxdb::params::ssl_deploy_certs`
 
 ##### <a name="-openvoxdb--server--ssl_key"></a>`ssl_key`
 
-Data type: `Any`
+Data type: `Optional[Variant[String[1], Sensitive[String[1]]]]`
 
 Contents of your SSL key, as a string.
 
@@ -1980,7 +1980,7 @@ Default value: `$openvoxdb::params::ssl_key`
 
 ##### <a name="-openvoxdb--server--ssl_cert"></a>`ssl_cert`
 
-Data type: `Any`
+Data type: `Optional[Variant[String[1], Sensitive[String[1]]]]`
 
 Contents of your SSL certificate, as a string.
 
@@ -1988,7 +1988,7 @@ Default value: `$openvoxdb::params::ssl_cert`
 
 ##### <a name="-openvoxdb--server--ssl_ca_cert"></a>`ssl_ca_cert`
 
-Data type: `Any`
+Data type: `Optional[Variant[String[1], Sensitive[String[1]]]]`
 
 Contents of your SSL CA certificate, as a string.
 
@@ -1996,7 +1996,7 @@ Default value: `$openvoxdb::params::ssl_ca_cert`
 
 ##### <a name="-openvoxdb--server--manage_firewall"></a>`manage_firewall`
 
-Data type: `Any`
+Data type: `Boolean`
 
 If `true`, puppet will manage your iptables rules for PuppetDB via the
 [puppetlabs-firewall](https://forge.puppetlabs.com/puppetlabs/firewall) class.
@@ -2005,7 +2005,7 @@ Default value: `$openvoxdb::params::manage_firewall`
 
 ##### <a name="-openvoxdb--server--command_threads"></a>`command_threads`
 
-Data type: `Any`
+Data type: `Optional[Integer]`
 
 The number of command processing threads to use. Defaults to `undef`, using the
 PuppetDB built-in default.
@@ -2014,7 +2014,7 @@ Default value: `$openvoxdb::params::command_threads`
 
 ##### <a name="-openvoxdb--server--concurrent_writes"></a>`concurrent_writes`
 
-Data type: `Any`
+Data type: `Optional[Integer]`
 
 The number of threads allowed to write to disk at any one time. Defaults to
 `undef`, which uses the PuppetDB built-in default.
@@ -2023,7 +2023,7 @@ Default value: `$openvoxdb::params::concurrent_writes`
 
 ##### <a name="-openvoxdb--server--store_usage"></a>`store_usage`
 
-Data type: `Any`
+Data type: `Optional[Integer]`
 
 The amount of disk space (in MB) to allow for persistent message storage.
 Defaults to `undef`, using the PuppetDB built-in default.
@@ -2032,7 +2032,7 @@ Default value: `$openvoxdb::params::store_usage`
 
 ##### <a name="-openvoxdb--server--temp_usage"></a>`temp_usage`
 
-Data type: `Any`
+Data type: `Optional[Integer]`
 
 The amount of disk space (in MB) to allow for temporary message storage.
 Defaults to `undef`, using the PuppetDB built-in default.
@@ -2041,7 +2041,7 @@ Default value: `$openvoxdb::params::temp_usage`
 
 ##### <a name="-openvoxdb--server--disable_update_checking"></a>`disable_update_checking`
 
-Data type: `Any`
+Data type: `Optional[Boolean]`
 
 Setting this to true disables checking for updated versions of PuppetDB and sending basic analytics data to Puppet.
 Defaults to `undef`, using the PuppetDB built-in default.
@@ -2050,7 +2050,7 @@ Default value: `$openvoxdb::params::disable_update_checking`
 
 ##### <a name="-openvoxdb--server--certificate_whitelist_file"></a>`certificate_whitelist_file`
 
-Data type: `Any`
+Data type: `Stdlib::Unixpath`
 
 The name of the certificate whitelist file to set up and configure in PuppetDB. Defaults to `/etc/puppetdb/certificate-whitelist` or `/etc/puppetlabs/puppetdb/certificate-whitelist` for FOSS and PE respectively.
 
@@ -2058,7 +2058,7 @@ Default value: `$openvoxdb::params::certificate_whitelist_file`
 
 ##### <a name="-openvoxdb--server--certificate_whitelist"></a>`certificate_whitelist`
 
-Data type: `Any`
+Data type: `Array`
 
 Array of the X.509 certificate Common Names of clients allowed to connect to PuppetDB. Defaults to empty. Be aware that this permits full access to all Puppet clients to download anything contained in PuppetDB, including the full catalogs of all nodes, which possibly contain sensitive information. Set to `[ $::servername ]` to allow access only from your (single) Puppet master, which is enough for normal operation. Set to a list of Puppet masters if you have multiple.
 
@@ -2066,7 +2066,7 @@ Default value: `$openvoxdb::params::certificate_whitelist`
 
 ##### <a name="-openvoxdb--server--database_max_pool_size"></a>`database_max_pool_size`
 
-Data type: `Any`
+Data type: `Optional[Variant[String[1], Integer[1]]]`
 
 When the pool reaches this size, and no idle connections are available, attempts to get a connection will wait for connection-timeout milliseconds before timing out.
 Note that PuppetDB will use one pool for writes and another for reads, so the total number of connections used will be twice this setting.
@@ -2075,7 +2075,7 @@ Default value: `$openvoxdb::params::database_max_pool_size`
 
 ##### <a name="-openvoxdb--server--read_database_max_pool_size"></a>`read_database_max_pool_size`
 
-Data type: `Any`
+Data type: `Optional[Variant[String[1], Integer[1]]]`
 
 When the pool reaches this size, and no idle connections are available, attempts to get a connection will wait for connection-timeout milliseconds before timing out.
 Note that PuppetDB will use one pool for writes and another for reads, so the total number of connections used will be twice this setting.

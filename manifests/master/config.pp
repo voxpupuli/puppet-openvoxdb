@@ -1,8 +1,10 @@
 # @summary manage the puppet configuration on the primary
 #
 # @param puppetdb_server
-#   The dns name or ip of the PuppetDB server. Defaults to the hostname of the
-#   current node, i.e. `$::fqdn`.
+#   The dns name or ip of the PuppetDB server, or an array of them. Defaults to
+#   the hostname of the current node, i.e. `$::fqdn`. With several servers, the
+#   terminus uses the first one and fails over to the next ones in order, and
+#   the validation succeeds as soon as one of them is reachable.
 #
 # @param puppetdb_port
 #   The port that the PuppetDB server is running on. Defaults to `8081`.
@@ -91,36 +93,36 @@
 #   files (other than `puppet.conf`).
 #
 class openvoxdb::master::config (
-  $puppetdb_server             = fact('networking.fqdn'),
-  $puppetdb_port               = defined(Class['openvoxdb']) ? {
+  Variant[Stdlib::Host, Array[Stdlib::Host, 1]] $puppetdb_server = fact('networking.fqdn'),
+  $puppetdb_port                                                 = defined(Class['openvoxdb']) ? {
     true    => $openvoxdb::disable_ssl ? {
       true => 8080,
       default => 8081,
     },
     default => 8081,
   },
-  $puppetdb_disable_ssl        = defined(Class['openvoxdb']) ? {
+  $puppetdb_disable_ssl                                          = defined(Class['openvoxdb']) ? {
     true    => $openvoxdb::disable_ssl,
     default => false,
   },
-  $masterless                  = $openvoxdb::params::masterless,
-  $puppetdb_soft_write_failure = false,
-  $manage_routes               = true,
-  $manage_storeconfigs         = true,
-  $enable_storeconfigs         = true,
-  $manage_report_processor     = false,
-  $manage_config               = true,
-  $create_puppet_service_resource = true,
-  $strict_validation           = true,
-  $enable_reports              = false,
-  $puppet_confdir              = $openvoxdb::params::puppet_confdir,
-  $puppet_conf                 = $openvoxdb::params::puppet_conf,
-  $terminus_package            = $openvoxdb::params::terminus_package,
-  $terminus_package_version    = $openvoxdb::params::terminus_package_version,
-  $puppet_service_name         = $openvoxdb::params::puppet_service_name,
-  $puppetdb_startup_timeout    = $openvoxdb::params::puppetdb_startup_timeout,
-  $test_url                    = $openvoxdb::params::test_url,
-  $restart_puppet              = true,
+  $masterless                                                    = $openvoxdb::params::masterless,
+  $puppetdb_soft_write_failure                                   = false,
+  $manage_routes                                                 = true,
+  $manage_storeconfigs                                           = true,
+  $enable_storeconfigs                                           = true,
+  $manage_report_processor                                       = false,
+  $manage_config                                                 = true,
+  $create_puppet_service_resource                                = true,
+  $strict_validation                                             = true,
+  $enable_reports                                                = false,
+  $puppet_confdir                                                = $openvoxdb::params::puppet_confdir,
+  $puppet_conf                                                   = $openvoxdb::params::puppet_conf,
+  $terminus_package                                              = $openvoxdb::params::terminus_package,
+  $terminus_package_version                                      = $openvoxdb::params::terminus_package_version,
+  $puppet_service_name                                           = $openvoxdb::params::puppet_service_name,
+  $puppetdb_startup_timeout                                      = $openvoxdb::params::puppetdb_startup_timeout,
+  $test_url                                                      = $openvoxdb::params::test_url,
+  $restart_puppet                                                = true,
 ) inherits openvoxdb::params {
   package { $terminus_package:
     ensure => $terminus_package_version,

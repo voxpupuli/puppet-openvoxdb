@@ -126,6 +126,21 @@ This should be all it takes to get a 3-node, distributed installation of
 OpenVoxDB up and running. Note that, if you prefer, you could easily move two of
 these classes to a single node and end up with a 2-node setup instead.
 
+#### Several OpenVoxDB servers
+
+The Puppet master can use several OpenVoxDB servers sharing the same database:
+it sends everything to the first one and fails over to the next ones, in order,
+when it is unreachable.
+
+    class { 'openvoxdb::master::config':
+      puppetdb_server => ['puppetdb1.example.com', 'puppetdb2.example.com'],
+    }
+
+The connection check of `strict_validation` succeeds as soon as one of them is
+reachable. Only one of the OpenVoxDB servers should migrate the database schema
+and run the garbage collection: set `migrate => false` and `gc_interval => 0`
+on `openvoxdb::server` on the others.
+
 ### Enable SSL connections
 
 To use SSL connections for the single node setup, use the following manifest:

@@ -1,8 +1,10 @@
 # @summary manage the puppet configuration on the primary
 #
 # @param puppetdb_server
-#   The dns name or ip of the PuppetDB server. Defaults to the hostname of the
-#   current node, i.e. `$::fqdn`.
+#   The dns name or ip of the PuppetDB server, or an array of them. Defaults to
+#   the hostname of the current node, i.e. `$::fqdn`. With several servers, the
+#   terminus uses the first one and fails over to the next ones in order, and
+#   the validation succeeds as soon as one of them is reachable.
 #
 # @param puppetdb_port
 #   The port that the PuppetDB server is running on. Defaults to `8081`.

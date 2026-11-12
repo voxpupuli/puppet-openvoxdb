@@ -31,7 +31,7 @@ Puppet::Type.type(:puppetdb_conn_validator).provide(:puppet_https) do
     start_time = Time.now
     timeout = resource[:timeout]
 
-    success = validator.attempt_connection
+    success = attempt_connections
 
     while success == false && ((Time.now - start_time) < timeout)
       # It can take several seconds for the puppetdb server to start up;
@@ -40,7 +40,7 @@ Puppet::Type.type(:puppetdb_conn_validator).provide(:puppet_https) do
       # seconds until the configurable timeout has expired.
       Puppet.notice('Failed to connect to puppetdb; sleeping 2 seconds before retry')
       sleep 2
-      success = validator.attempt_connection
+      success = attempt_connections
     end
 
     Puppet.notice("Failed to connect to puppetdb within timeout window of #{timeout} seconds; giving up.") unless success
@@ -55,14 +55,25 @@ Puppet::Type.type(:puppetdb_conn_validator).provide(:puppet_https) do
     # If `#create` is called, that means that `#exists?` returned false, which
     # means that the connection could not be established... so we need to
     # cause a failure here.
-    raise Puppet::Error, "Unable to connect to puppetdb server! (#{@validator.puppetdb_server}:#{@validator.puppetdb_port})"
+    servers = validators.map { |validator| "#{validator.puppetdb_server}:#{validator.puppetdb_port}" }
+    raise Puppet::Error, "Unable to connect to puppetdb server! (#{servers.join(', ')})"
   end
 
-  # Returns the existing validator, if one exists otherwise creates a new object
-  # from the class.
+  # Tries the servers in order and stops at the first one that answers.
   #
   # @api private
-  def validator
-    @validator ||= Puppet::Util::PuppetdbValidator.new(resource[:puppetdb_server], resource[:puppetdb_port], resource[:use_ssl], resource[:test_url])
+  # @return [bool] could one of the servers be reached?
+  def attempt_connections
+    validators.any?(&:attempt_connection)
+  end
+
+  # Returns the existing validators, one per server, if they exist otherwise
+  # creates them.
+  #
+  # @api private
+  def validators
+    @validators ||= [resource[:puppetdb_server]].flatten.map do |server|
+      Puppet::Util::PuppetdbValidator.new(server, resource[:puppetdb_port], resource[:use_ssl], resource[:test_url])
+    end
   end
 end

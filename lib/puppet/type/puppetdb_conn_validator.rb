@@ -15,7 +15,8 @@ Puppet::Type.newtype(:puppetdb_conn_validator) do
   end
 
   newparam(:puppetdb_server) do
-    desc 'The DNS name or IP address of the server where puppetdb should be running.'
+    desc 'The DNS name or IP address of the server where puppetdb should be running, or an array of them:
+          the connection is valid as soon as one of them is reachable.'
   end
 
   newparam(:puppetdb_port) do

@@ -1153,8 +1153,10 @@ The following parameters are available in the `openvoxdb::master::config` class:
 
 Data type: `Any`
 
-The dns name or ip of the PuppetDB server. Defaults to the hostname of the
-current node, i.e. `$::fqdn`.
+The dns name or ip of the PuppetDB server, or an array of them. Defaults to
+the hostname of the current node, i.e. `$::fqdn`. With several servers, the
+terminus uses the first one and fails over to the next ones in order, and
+the validation succeeds as soon as one of them is reachable.
 
 Default value: `fact('networking.fqdn')`
 
@@ -2176,7 +2178,8 @@ The port that the puppetdb server should be listening on.
 
 ##### <a name="-puppetdb_conn_validator--puppetdb_server"></a>`puppetdb_server`
 
-The DNS name or IP address of the server where puppetdb should be running.
+The DNS name or IP address of the server where puppetdb should be running, or an array of them:
+the connection is valid as soon as one of them is reachable.
 
 ##### <a name="-puppetdb_conn_validator--test_url"></a>`test_url`
 
